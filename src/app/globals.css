@@ -1,26 +1,736 @@
+@import url("https://api.fontshare.com/v2/css?f[]=general-sans@500&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-general-sans: "General Sans", var(--font-inter), sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+  No min-width here — the site is responsive from 320px up.
+  Desktop (>=1280px) renders byte-identical to before: every rule below
+  that changes layout is scoped to max-width queries below 1280px, and the
+  container/typography helpers below are additive (no-ops at >=1280px).
+*/
+
+body {
+  background-color: #010101;
+  color: #f2fff6;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Subtle tap feedback on primary CTAs — interaction-only, doesn't touch
+   the static (non-pressed) appearance at any breakpoint. */
+.contact-button,
+.hamburger-btn {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-button:active,
+.hamburger-btn:active {
+  transform: scale(0.96);
+}
+
+/* ─── Project card hover ─────────────────────────────────────── */
+
+/*
+  Whole card is a single clickable <a>. Hover choreography (in order):
+    1. card lifts (translateY)
+    2. dark overlay fades in
+    3. text block fades/slides in
+    4. button fades/slides in last
+*/
+.project-card {
+  display: block;
+  cursor: pointer;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Corner clip lives here, isolated from the transform above — see the
+   comment in ProjectCard.tsx / LuCardsCard.tsx for why. */
+.project-card__clip {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.project-card__overlay {
+  background: rgba(2, 0, 19, 0.7);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-card__text {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.09s,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.09s;
+}
+
+.project-card__button {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
+}
+
+.project-card:hover .project-card__overlay {
+  opacity: 1;
+}
+
+.project-card:hover .project-card__text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card:hover .project-card__button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE — everything below only ever touches widths < 1280px.
+   Desktop (>=1280px) is untouched: no selector here matches without
+   a max-width condition, except the additive/no-op container cap.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Container: caps content at the 1280 desktop design at wide viewports.
+   At exactly 1280px this is a no-op (max-width == viewport width). */
+.container-1280 {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Side padding steps down below the 1280 desktop baseline (50px). */
+@media (max-width: 1279px) {
+  .responsive-px {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+}
+@media (max-width: 1023px) {
+  .responsive-px {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+}
+@media (max-width: 768px) {
+  .responsive-px {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+@media (max-width: 479px) {
+  .responsive-px {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── Motion: scroll-reveal ──────────────────────────────────────── */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── Hero: nav ──────────────────────────────────────────────────── */
+
+.hero-nav {
+  position: relative;
+}
+
+@media (max-width: 1279px) {
+  .hero-nav-group {
+    gap: clamp(24px, 6vw, 200px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-nav-group,
+  .hero-nav-contact {
+    display: none !important;
+  }
+  .hamburger-btn {
+    display: flex !important;
+  }
+}
+
+/* ─── Hero: title ────────────────────────────────────────────────── */
+
+@media (max-width: 1279px) {
+  .hero-title-row {
+    height: auto !important;
+  }
+}
+
+/* >=768px: name must stay on one line, no horizontal scroll — the
+   formula is fitted so the rendered text width never exceeds the
+   container's content width at any point in this range. */
+@media (max-width: 1279px) and (min-width: 768px) {
+  .hero-title {
+    font-size: clamp(90px, calc(13vw - 3px), 169px) !important;
+    letter-spacing: -0.045em !important;
+    white-space: nowrap !important;
+    line-height: 1.05 !important;
+  }
+}
+
+/* <768px: two-line wrap is allowed and expected. */
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: clamp(40px, calc(9.8vw + 22px), 97px) !important;
+    letter-spacing: -0.04em !important;
+    white-space: normal !important;
+    line-height: 1.05 !important;
+  }
+}
+
+/* ─── Hero: intro columns ────────────────────────────────────────── */
+
+@media (max-width: 1279px) {
+  .hero-intro-row {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    row-gap: 32px !important;
+  }
+  .hero-intro-col {
+    width: auto !important;
+    /* min-width:0 lets a flex item shrink below its text's min-content
+       size (so long lines wrap) instead of overflowing into the next
+       column — without it, "Специализация"/"Опыт" can visually overlap. */
+    min-width: 0 !important;
+    flex: 1 1 45% !important;
+  }
+  /* The 70/40 desktop rhythm reads as a dead gap once the title shrinks —
+     tighten it proportionally on smaller canvases. */
+  .hero-intro-block {
+    padding-top: 48px !important;
+    padding-bottom: 32px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-intro-row {
+    flex-direction: column !important;
+  }
+  .hero-intro-col {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+  }
+  .hero-intro-block {
+    padding-top: 40px !important;
+    padding-bottom: 28px !important;
+  }
+  /* 44px touch target WITHOUT adding visible row height — an invisible
+     hit-area extends above/below the link itself instead of a min-height
+     on the row, so "Публикации" keeps the exact same vertical rhythm as
+     the other two columns (Специализация/Опыт). */
+  .hero-pub-anchor::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: -32px;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+}
+
+/* ─── Hamburger button (Hero nav, <=480px) ──────────────────────── */
+
+.hamburger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1001;
+}
+
+.hamburger-icon {
+  position: relative;
+  width: 24px;
+  height: 16px;
+  display: block;
+}
+
+.hamburger-icon span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #f2fff6;
+  transition: transform 0.3s ease, opacity 0.3s ease, top 0.3s ease;
+}
+
+.hamburger-icon span:nth-child(1) {
+  top: 0;
+}
+.hamburger-icon span:nth-child(2) {
+  top: 7px;
+}
+.hamburger-icon span:nth-child(3) {
+  top: 14px;
+}
+
+.hamburger-icon--open span:nth-child(1) {
+  top: 7px;
+  transform: rotate(45deg);
+}
+.hamburger-icon--open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-icon--open span:nth-child(3) {
+  top: 7px;
+  transform: rotate(-45deg);
+}
+
+/* ─── Fullscreen mobile menu (<=480px only) ─────────────────────── */
+
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: #010101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    visibility 0s linear 0.35s;
+  z-index: 1000;
+}
+
+.mobile-menu-overlay--open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.mobile-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.mobile-menu-link {
+  font-family: var(--font-general-sans);
+  font-size: 36px;
+  font-weight: 500;
+  color: #f2fff6;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-menu-overlay--open .mobile-menu-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Works: existing (hover-style) cards on tablet ─────────────── */
+
+@media (max-width: 1279px) {
+  .project-card--full {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1180 / 664 !important;
+  }
+  .project-card--half {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 580 / 664 !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Section vertical rhythm — the 70–100px desktop gaps read as dead space
+   once type/cards shrink on smaller canvases. Tighten proportionally. */
+@media (max-width: 1279px) {
+  .works-top-pad {
+    padding-top: 64px !important;
+  }
+  .works-other-heading {
+    padding-top: 56px !important;
+  }
+  .about-section-pad {
+    padding-top: 48px !important;
+  }
+  .contact-section-pad {
+    padding-top: 64px !important;
+  }
+  .logo-strip-viewport {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .works-top-pad {
+    padding-top: 48px !important;
+  }
+  .works-other-heading {
+    padding-top: 44px !important;
+  }
+  .about-section-pad {
+    padding-top: 40px !important;
+  }
+  .contact-section-pad {
+    padding-top: 48px !important;
+  }
+  .logo-strip-viewport {
+    padding-top: 44px !important;
+    padding-bottom: 44px !important;
+  }
+}
+
+/* Below 768: the hover-based desktop cards are replaced by always-visible
+   mobile cards (see MobileProjectCard) — hover has no place on touch. */
+@media (max-width: 768px) {
+  .desktop-only-row {
+    display: none !important;
+  }
+  .mobile-works-grid {
+    display: flex !important;
+  }
+}
+
+.mobile-works-grid {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ─── Works: mobile project card ─────────────────────────────────── */
+
+.mobile-project-card {
+  display: block;
+  border-radius: 16px;
+  border: 2px solid rgba(232, 247, 210, 0.12);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-project-card:active {
+  transform: scale(0.985);
+}
+
+/* Corner clip isolated from the :active transform above (see ProjectCard
+   for the same fix on desktop) — avoids un-clipped corner slivers. */
+.mobile-project-card__clip {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #141414;
+}
+
+.mobile-project-card__image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mobile-project-card__tint {
+  position: absolute;
+  inset: 0;
+}
+
+/* Image fades into the card's dark body instead of cutting off sharply. */
+.mobile-project-card__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, #141414 100%);
+  pointer-events: none;
+}
+
+.mobile-project-card__body {
+  /* More air right after the image, and the button gets its own
+     margin-top below (on top of this gap) so it doesn't sit stuck to
+     the tags/chips. */
+  padding: 28px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mobile-project-card__title {
+  font-family: var(--font-general-sans);
+  font-weight: 500;
+  font-size: clamp(20px, 5vw, 24px);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  color: #f2fff6;
+}
+
+.mobile-project-card__desc {
+  font-size: clamp(14px, 3.6vw, 16px);
+  line-height: 1.5;
+  color: rgba(242, 255, 246, 0.7);
+}
+
+.mobile-project-card__tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mobile-project-card__tag {
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 100px;
+  font-size: 13px;
+  color: #f2fff6;
+  white-space: nowrap;
+}
+
+.mobile-project-card__button {
+  /* On top of the body's 14px gap — clears ~24px from the chips instead
+     of visually touching them. */
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #f2fff6;
+  color: #010101;
+  border-radius: 48px;
+  padding: 12px 20px;
+  font-family: var(--font-general-sans);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.3px;
+  min-height: 44px;
+  width: fit-content;
+}
+
+/* ─── Logo strip: horizontal scroll below desktop ───────────────────
+   The row's natural width (~1165px + gaps) only fits inside the fixed
+   1280px desktop canvas. Any narrower viewport needs a scroll track —
+   not just <=768 — otherwise 1024/820 get horizontal page overflow. */
+
+@media (max-width: 1279px) {
+  .logo-strip-viewport {
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-strip-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-right: 20px;
+  }
+  .logo-strip-track::-webkit-scrollbar {
+    display: none;
+  }
+  .logo-strip-track > * {
+    scroll-snap-align: start;
+  }
+  .logo-strip-viewport::before,
+  .logo-strip-viewport::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .logo-strip-viewport::before {
+    left: 0;
+    background: linear-gradient(to right, #010101, transparent);
+  }
+  .logo-strip-viewport::after {
+    right: 0;
+    background: linear-gradient(to left, #010101, transparent);
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-strip-track {
+    gap: 48px !important;
+  }
+}
+
+/* Clone set for the seamless marquee loop — hidden unless marquee mode
+   (mouse/trackpad, see below) is actually active. */
+.logo-strip-clone {
+  display: none;
+}
+
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Mouse/trackpad only (hover:hover + pointer:fine) — touch devices keep
+   the manual scroll-snap track above so swipe always works. Barely-there,
+   slow full loop; pauses the instant the cursor is over the strip. */
+@media (max-width: 1279px) and (hover: hover) and (pointer: fine) {
+  .logo-strip-track {
+    overflow: hidden !important;
+    width: max-content;
+    animation: logo-marquee 52s linear infinite;
+    will-change: transform;
+  }
+  .logo-strip-track:hover {
+    animation-play-state: paused;
+  }
+  .logo-strip-clone {
+    display: block;
+  }
+}
+
+@media (max-width: 1279px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .logo-strip-track {
+    animation: none;
+  }
+}
+
+/* ─── About: stack on tablet/mobile ──────────────────────────────── */
+
+@media (max-width: 1279px) {
+  .about-row {
+    flex-wrap: wrap !important;
+  }
+  .about-left,
+  .about-right {
+    width: auto !important;
+    min-width: 0 !important;
+    flex: 1 1 420px !important;
+  }
+  .about-heading {
+    width: 100% !important;
+    max-width: 520px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-row {
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    gap: 32px !important;
+  }
+  .about-left,
+  .about-right {
+    width: 100% !important;
+    flex: none !important;
+  }
+}
+
+/* ─── Contact: stack + reflow on tablet/mobile ───────────────────── */
+
+@media (max-width: 1279px) {
+  .contact-card {
+    flex-wrap: wrap !important;
+  }
+}
+
+/* Mobile order: headline → button → links — links stack in a column
+   directly under the CTA, left-aligned, same rhythm as the rest. */
+@media (max-width: 768px) {
+  .contact-card {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 28px !important;
+    padding: 32px 24px !important;
+  }
+  .contact-headline {
+    font-size: clamp(28px, 6vw, 40px) !important;
+    letter-spacing: -0.04em !important;
+    width: 100% !important;
+  }
+  .contact-right {
+    align-self: auto !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px !important;
+    /* On top of the card's own 28px gap below the button — the button
+       needs to read as clearly separate from the link list, not just
+       another item in the same rhythm. */
+    margin-top: 16px !important;
+  }
+  .contact-right a {
+    font-size: clamp(16px, 4.2vw, 20px) !important;
+    letter-spacing: -0.03em !important;
+    gap: 6px !important;
+    min-height: 36px !important;
+    align-items: center !important;
+  }
+  .contact-right svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .contact-card {
+    padding: 28px 20px !important;
+  }
+  .contact-button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }
