@@ -58,8 +58,7 @@ export default function HeroSection() {
             "Dragan Ekaterina" as HTML text.
             Original SVG vectors in Figma span 1177.98×155.89px at 1280px viewport.
             Content width = 1180px (1280 - 2×50px padding).
-            Inter Black (900) at 10.8vw fills ~1178px at 1280px viewport.
-            vw units ensure proportional scaling across desktop resolutions.
+            General Sans Medium (500) at 169px fills ~1178px at 1280px viewport.
             Below 1280px, .hero-title switches to a clamp() that reaches
             exactly 169px at the 1280 breakpoint (see globals.css) — desktop
             value is unchanged, smaller viewports scale down fluidly and may

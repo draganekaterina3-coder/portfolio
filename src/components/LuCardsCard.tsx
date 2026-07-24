@@ -25,13 +25,20 @@ type LuCardsCardProps = {
   description: string;
   tags: string[];
   href?: string;
+  /** Only the true above-the-fold LCP candidate should set this. */
+  priority?: boolean;
 };
+
+// Renders at the same width as ProjectCard's half variant (see
+// .project-card--half in globals.css) — same sizes value.
+const IMAGE_SIZES = "(max-width: 768px) 100vw, (max-width: 1279px) 45vw, 580px";
 
 export default function LuCardsCard({
   title,
   description,
   tags,
   href = "#",
+  priority = false,
 }: LuCardsCardProps) {
   return (
     <a
@@ -54,6 +61,7 @@ export default function LuCardsCard({
           alt=""
           width={1160}
           height={1328}
+          sizes={IMAGE_SIZES}
           style={{
             position: "absolute",
             inset: 0,
@@ -62,7 +70,7 @@ export default function LuCardsCard({
             objectFit: "cover",
             opacity: 0.9,
           }}
-          priority
+          priority={priority}
         />
 
         {/* Layer 1 — idle tint, always visible */}
@@ -82,6 +90,7 @@ export default function LuCardsCard({
           alt=""
           width={1160}
           height={1328}
+          sizes={IMAGE_SIZES}
           style={{
             position: "absolute",
             inset: 0,
@@ -90,7 +99,7 @@ export default function LuCardsCard({
             objectFit: "cover",
             zIndex: 1,
           }}
-          priority
+          priority={priority}
         />
 
         {/* Layer 3 — GIF, masked to the screen window, drawn on top of the
@@ -155,7 +164,7 @@ export default function LuCardsCard({
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            <p
+            <h3
               style={{
                 fontFamily: "var(--font-general-sans)",
                 fontWeight: 500,
@@ -166,7 +175,7 @@ export default function LuCardsCard({
               }}
             >
               {title}
-            </p>
+            </h3>
             <p
               style={{
                 fontSize: "20px",

@@ -104,7 +104,7 @@ export default function ContactSection() {
             minWidth: 0,
           }}
         >
-          <p
+          <h2
             className="contact-headline"
             style={{
               fontFamily: "var(--font-general-sans)",
@@ -118,10 +118,12 @@ export default function ContactSection() {
             }}
           >
             {"Рассматриваю позицию продуктового дизайнера. Открыта к предложениям!"}
-          </p>
+          </h2>
 
           <a
-            href="mailto:"
+            href="https://t.me/ekt_dr"
+            target="_blank"
+            rel="noopener noreferrer"
             className="contact-button"
             style={{
               backgroundColor: "#010101",
@@ -158,15 +160,30 @@ export default function ContactSection() {
             flexShrink: 0,
           }}
         >
-          <a href="#" style={linkStyle}>
+          <a
+            href="https://spb.hh.ru/resume/3be0c8a0ff07562ef40039ed1f38766d784658"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={linkStyle}
+          >
             <span>Headhunter</span>
             <LinkArrowIcon />
           </a>
-          <a href="#" style={linkStyle}>
+          <a
+            href="https://www.behance.net/221a97bb"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={linkStyle}
+          >
             <span>Behance</span>
             <LinkArrowIcon />
           </a>
-          <a href="#" style={linkStyle}>
+          <a
+            href="https://www.linkedin.com/in/ekaterina-dragan-218448272/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={linkStyle}
+          >
             <span>LinkedIn</span>
             <LinkArrowIcon />
           </a>

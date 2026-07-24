@@ -78,7 +78,7 @@ export default function AboutSection() {
             >
               <Image
                 src="/about/photo-1.png"
-                alt="Photo"
+                alt="Екатерина Драган, продуктовый дизайнер"
                 width={364}
                 height={360}
                 style={{
@@ -120,7 +120,7 @@ export default function AboutSection() {
             >
               <Image
                 src="/about/photo-2.png"
-                alt="Photo"
+                alt="Екатерина Драган выступает с докладом на конференции"
                 width={488}
                 height={284}
                 style={{

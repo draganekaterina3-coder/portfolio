@@ -16,6 +16,8 @@ type ProjectCardProps = {
   buttonText?: string;
   buttonIcon?: boolean;
   tagBorderColor?: string;
+  /** Only the true above-the-fold LCP candidate should set this. */
+  priority?: boolean;
 };
 
 const ArrowIcon = ({ color = "#010101" }: { color?: string }) => (
@@ -49,8 +51,15 @@ export default function ProjectCard({
   buttonText = "Посмотреть проект",
   buttonIcon = false,
   tagBorderColor = "rgba(255,255,255,0.4)",
+  priority = false,
 }: ProjectCardProps) {
   const cardWidth = fullWidth ? 1180 : 580;
+  // Matches how wide this card actually renders at each breakpoint (see
+  // .project-card--full/--half in globals.css) so the browser fetches an
+  // appropriately-sized image instead of always the largest candidate.
+  const sizes = fullWidth
+    ? "(max-width: 768px) 100vw, (max-width: 1279px) 90vw, 1180px"
+    : "(max-width: 768px) 100vw, (max-width: 1279px) 45vw, 580px";
 
   return (
     // Whole card is one clickable link; the "button" below is a visual CTA only.
@@ -82,6 +91,7 @@ export default function ProjectCard({
               alt=""
               width={imageWidth}
               height={imageHeight}
+              sizes={sizes}
               style={{
                 position: "absolute",
                 inset: 0,
@@ -91,7 +101,7 @@ export default function ProjectCard({
                 objectPosition: layer.objectPosition ?? "center top",
                 opacity: layer.opacity ?? 1,
               }}
-              priority
+              priority={priority}
             />
           ) : (
             <div
@@ -135,7 +145,7 @@ export default function ProjectCard({
         >
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             {title && (
-              <p
+              <h3
                 style={{
                   fontFamily: "var(--font-general-sans)",
                   fontWeight: 500,
@@ -146,7 +156,7 @@ export default function ProjectCard({
                 }}
               >
                 {title}
-              </p>
+              </h3>
             )}
 
             {description && (

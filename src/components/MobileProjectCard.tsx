@@ -84,6 +84,7 @@ export default function MobileProjectCard({
                   alt=""
                   width={imageWidth}
                   height={imageHeight}
+                  sizes="100vw"
                   style={{
                     position: "absolute",
                     inset: 0,
@@ -110,7 +111,7 @@ export default function MobileProjectCard({
         </div>
 
         <div className="mobile-project-card__body">
-          <p className="mobile-project-card__title">{title}</p>
+          <h3 className="mobile-project-card__title">{title}</h3>
           <p className="mobile-project-card__desc">{description}</p>
 
           {tags.length > 0 && (

@@ -1,4 +1,3 @@
-@import url("https://api.fontshare.com/v2/css?f[]=general-sans@500&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -30,6 +29,17 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/* ─── Focus ring (keyboard only) ─────────────────────────────────────
+   :focus-visible, not :focus — mouse/touch clicks never trigger this,
+   only real keyboard navigation. Replaces the browser-default blue
+   outline with the site's mint accent. outline naturally follows the
+   focused element's own border-radius in all current evergreen
+   browsers, so no extra radius handling is needed here. */
+:focus-visible {
+  outline: 2px solid #a0f6bb;
+  outline-offset: 2px;
 }
 
 /* Subtle tap feedback on primary CTAs — interaction-only, doesn't touch

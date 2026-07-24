@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Source of truth for the D monogram — favicon.ico, apple-touch-icon.png,
+       icon-192.png and icon-512.png are all rendered from this same
+       geometry (flat fill, no shadows/gradients) at their target size,
+       not scaled up from a raster. Regenerate them from this file (or the
+       equivalent next/og markup) if the design changes. -->
+  <rect width="512" height="512" fill="#010101" />
+  <text
+    x="50%"
+    y="53%"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="system-ui, -apple-system, 'Segoe UI', sans-serif"
+    font-weight="900"
+    font-size="400"
+    fill="#a0f6bb"
+  >D</text>
+</svg>

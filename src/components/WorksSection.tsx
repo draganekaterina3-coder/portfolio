@@ -18,6 +18,7 @@ const LuCardsMobileImage = () => (
       alt=""
       width={1160}
       height={1328}
+      sizes="100vw"
       style={{
         position: "absolute",
         inset: 0,
@@ -59,6 +60,7 @@ const LuCardsMobileImage = () => (
       alt=""
       width={1160}
       height={1328}
+      sizes="100vw"
       style={{
         position: "absolute",
         inset: 0,
@@ -104,7 +106,7 @@ export default function WorksSection() {
       {/* ── Row 1: heading + SuperApp (h=810) ── */}
       <div className="works-top-pad" style={{ paddingTop: "100px" }}>
         <div className="container-1280 responsive-px" style={{ padding: "0 50px" }}>
-          <p style={headingStyle}>Избранные проекты</p>
+          <h2 style={headingStyle}>Избранные проекты</h2>
         </div>
         <ScrollReveal>
           <div
@@ -113,6 +115,7 @@ export default function WorksSection() {
           >
             <ProjectCard
               fullWidth
+              priority
               layers={[
                 { kind: "tint", color: "rgba(0,83,161,0.2)" },
                 { kind: "image", src: "/projects/SuperApp.png", opacity: 0.9 },
@@ -229,7 +232,7 @@ export default function WorksSection() {
 
       {/* ── "Другие проекты" heading (h=96) ── */}
       <div className="container-1280 responsive-px works-other-heading" style={{ padding: "70px 50px 0" }}>
-        <p style={headingStyle}>Другие проекты</p>
+        <h2 style={headingStyle}>Другие проекты</h2>
       </div>
 
       {/* ── Row 4: Frenk + Flawery (h=684) ── */}
