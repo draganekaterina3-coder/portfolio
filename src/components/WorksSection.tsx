@@ -10,6 +10,14 @@ import ScrollReveal from "./ScrollReveal";
   and proportions as the desktop card (scaled to the mobile image slot),
   clipped by the slot's own overflow so the phone can bleed off the edges
   exactly like it does on desktop.
+
+  z-index note (matches LuCardsCard.tsx): the phone mockup's "screen" area
+  isn't reliably transparent, so the GIF has to be explicitly stacked
+  ABOVE the phone (zIndex 2 vs 1) rather than relying on default DOM
+  paint order. Without this the phone image — last in the DOM — paints
+  over the gif and the screen just shows as a solid black rectangle
+  instead of playing. This was already handled on desktop; this mobile
+  composite just hadn't picked up the same fix.
 */
 const LuCardsMobileImage = () => (
   <>
@@ -37,24 +45,6 @@ const LuCardsMobileImage = () => (
         WebkitBackdropFilter: "blur(6px)",
       }}
     />
-    <div
-      style={{
-        position: "absolute",
-        left: "17.6%",
-        top: "11.1%",
-        width: "65%",
-        height: "123.5%",
-        borderRadius: "9.55% / 4.39%",
-        overflow: "hidden",
-      }}
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/projects/LU Cards_animation.gif"
-        alt=""
-        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-      />
-    </div>
     <Image
       src="/projects/LU Cards_phone.png"
       alt=""
@@ -67,8 +57,28 @@ const LuCardsMobileImage = () => (
         width: "100%",
         height: "100%",
         objectFit: "cover",
+        zIndex: 1,
       }}
     />
+    <div
+      style={{
+        position: "absolute",
+        left: "17.6%",
+        top: "11.1%",
+        width: "65%",
+        height: "123.5%",
+        borderRadius: "9.55% / 4.39%",
+        overflow: "hidden",
+        zIndex: 2,
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/projects/LU Cards_animation.gif"
+        alt=""
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+      />
+    </div>
   </>
 );
 

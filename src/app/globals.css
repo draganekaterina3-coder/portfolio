@@ -570,10 +570,29 @@ a {
   width: fit-content;
 }
 
-/* ─── Logo strip: horizontal scroll below desktop ───────────────────
+/* ─── Logo strip: horizontal auto-scroll below desktop ───────────────
    The row's natural width (~1165px + gaps) only fits inside the fixed
    1280px desktop canvas. Any narrower viewport needs a scroll track —
-   not just <=768 — otherwise 1024/820 get horizontal page overflow. */
+   not just <=768 — otherwise 1024/820 get horizontal page overflow.
+
+   Auto-scroll and manual drag/swipe both drive the same native
+   scrollLeft (see the useAutoScroll hook in LogoStrip.tsx) instead of a
+   CSS transform animation running alongside overflow-x:auto — those are
+   two independent systems that fight each other and visibly jump the
+   moment a user grabs the track mid-animation. No scroll-snap either,
+   for the same reason: mandatory snap points fighting a continuously
+   auto-advancing scrollLeft is exactly the kind of stutter this is
+   meant to avoid. This now runs on touch devices too, not just
+   mouse/trackpad — the previous (hover:hover)+(pointer:fine) gate meant
+   auto-scroll never ran on an actual phone. */
+
+/* Base state: no clone, nothing to loop — only below 1280px (next rule)
+   does the row overflow and need the duplicate set. Declared before the
+   media query on purpose: same specificity as the override inside it,
+   so source order decides, and this one has to lose the cascade there. */
+.logo-strip-clone {
+  display: none;
+}
 
 @media (max-width: 1279px) {
   .logo-strip-viewport {
@@ -582,16 +601,12 @@ a {
   }
   .logo-strip-track {
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding-right: 20px;
   }
   .logo-strip-track::-webkit-scrollbar {
     display: none;
-  }
-  .logo-strip-track > * {
-    scroll-snap-align: start;
   }
   .logo-strip-viewport::before,
   .logo-strip-viewport::after {
@@ -611,50 +626,16 @@ a {
     right: 0;
     background: linear-gradient(to left, #010101, transparent);
   }
-}
-
-@media (max-width: 768px) {
-  .logo-strip-track {
-    gap: 48px !important;
-  }
-}
-
-/* Clone set for the seamless marquee loop — hidden unless marquee mode
-   (mouse/trackpad, see below) is actually active. */
-.logo-strip-clone {
-  display: none;
-}
-
-@keyframes logo-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* Mouse/trackpad only (hover:hover + pointer:fine) — touch devices keep
-   the manual scroll-snap track above so swipe always works. Barely-there,
-   slow full loop; pauses the instant the cursor is over the strip. */
-@media (max-width: 1279px) and (hover: hover) and (pointer: fine) {
-  .logo-strip-track {
-    overflow: hidden !important;
-    width: max-content;
-    animation: logo-marquee 52s linear infinite;
-    will-change: transform;
-  }
-  .logo-strip-track:hover {
-    animation-play-state: paused;
-  }
+  /* Clone set makes the loop seamless — present on every device below
+     1280px now that auto-scroll isn't limited to mouse/trackpad. */
   .logo-strip-clone {
     display: block;
   }
 }
 
-@media (max-width: 1279px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+@media (max-width: 768px) {
   .logo-strip-track {
-    animation: none;
+    gap: 48px !important;
   }
 }
 
