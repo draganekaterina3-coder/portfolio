@@ -79,6 +79,11 @@ const LuCardsMobileImage = () => (
         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
       />
     </div>
+    {/* Fades the composite into the card body, same as every other mobile
+        card's image (.mobile-project-card__fade) — this one just needs an
+        explicit z-index to actually sit above the phone/gif layers instead
+        of painting under them like an unstacked sibling would. */}
+    <div className="mobile-project-card__fade" style={{ zIndex: 3 }} />
   </>
 );
 
@@ -202,8 +207,7 @@ export default function WorksSection() {
             imageWidth={2360}
             imageHeight={1328}
             imageOpacity={0.9}
-            aspectRatio="4 / 3.1"
-            objectPosition="24% 44%"
+            objectPosition="30% center"
             tintColor="rgba(0,83,161,0.25)"
             title="Суперапп для электромобиля (NDA)"
             description="Диагностировали падение SUS с 84% до 75% и заложили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP"
@@ -211,7 +215,6 @@ export default function WorksSection() {
           />
           <MobileProjectCard
             imageSlot={<LuCardsMobileImage />}
-            aspectRatio="580 / 664"
             title="LU Cards"
             description="Механика с ежедневной картой увеличила возвращаемость: reveal-анимация превратила открытие карты в ритуал и подняла приложение в топ-100 App Store"
             tags={["iOS", "Android"]}
@@ -231,8 +234,7 @@ export default function WorksSection() {
             imageWidth={2360}
             imageHeight={1328}
             imageOpacity={1}
-            aspectRatio="8 / 5"
-            objectPosition="center 18%"
+            objectPosition="center 15%"
             title="Европейский телеком (NDA)"
             description="Как JTBD-исследование изменило бизнес-модель, а онбординг снизил нагрузку на поддержку"
             tags={["iOS", "Android", "Web", "Admin panel"]}
@@ -293,7 +295,6 @@ export default function WorksSection() {
           image="/projects/Frenk.png"
           imageWidth={1160}
           imageHeight={1328}
-          aspectRatio="5 / 6"
           objectPosition="center 78%"
           title="Frank by БАСТА"
           description="4 режима заказа: доставка, самовывоз, групповой, блюдо за баллы. Решение CRM-ограничений через контекстный сбор данных пользователя"

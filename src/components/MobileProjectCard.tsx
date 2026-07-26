@@ -62,7 +62,10 @@ export default function MobileProjectCard({
   imageOpacity = 1,
   objectPosition = "center top",
   imageScale = 1,
-  aspectRatio = "4 / 5",
+  // Same ratio as the LU Cards phone composite (580/664) — every mobile
+  // card cover is this ratio now so the covers read as one consistent
+  // row instead of each card having a different height.
+  aspectRatio = "580 / 664",
   tintColor,
   tintBlendMode = "normal",
   imageSlot,

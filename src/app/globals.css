@@ -572,19 +572,15 @@ a {
 
 /* ─── Logo strip: horizontal auto-scroll below desktop ───────────────
    The row's natural width (~1165px + gaps) only fits inside the fixed
-   1280px desktop canvas. Any narrower viewport needs a scroll track —
+   1280px desktop canvas. Any narrower viewport needs it to scroll —
    not just <=768 — otherwise 1024/820 get horizontal page overflow.
 
-   Auto-scroll and manual drag/swipe both drive the same native
-   scrollLeft (see the useAutoScroll hook in LogoStrip.tsx) instead of a
-   CSS transform animation running alongside overflow-x:auto — those are
-   two independent systems that fight each other and visibly jump the
-   moment a user grabs the track mid-animation. No scroll-snap either,
-   for the same reason: mandatory snap points fighting a continuously
-   auto-advancing scrollLeft is exactly the kind of stutter this is
-   meant to avoid. This now runs on touch devices too, not just
-   mouse/trackpad — the previous (hover:hover)+(pointer:fine) gate meant
-   auto-scroll never ran on an actual phone. */
+   Plain CSS animation, no JS: runs on every device below 1280px,
+   including touch — manual drag/swipe isn't needed here, so there's no
+   overflow-x:auto fighting the animation's transform, and no touch-event
+   edge cases to get wrong. Pauses on real :hover, which only desktop/
+   trackpad ever triggers — touch devices simply never match it, so
+   auto-scroll just keeps running there. */
 
 /* Base state: no clone, nothing to loop — only below 1280px (next rule)
    does the row overflow and need the duplicate set. Declared before the
@@ -600,13 +596,13 @@ a {
     overflow: hidden;
   }
   .logo-strip-track {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-right: 20px;
+    overflow: hidden;
+    width: max-content;
+    animation: logo-marquee 52s linear infinite;
+    will-change: transform;
   }
-  .logo-strip-track::-webkit-scrollbar {
-    display: none;
+  .logo-strip-track:hover {
+    animation-play-state: paused;
   }
   .logo-strip-viewport::before,
   .logo-strip-viewport::after {
@@ -630,6 +626,21 @@ a {
      1280px now that auto-scroll isn't limited to mouse/trackpad. */
   .logo-strip-clone {
     display: block;
+  }
+}
+
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1279px) and (prefers-reduced-motion: reduce) {
+  .logo-strip-track {
+    animation: none;
   }
 }
 
