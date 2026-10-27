@@ -11,8 +11,8 @@ const inter = Inter({
   // a real 500 file here, the browser snapped Cyrillic to a different
   // weight than the Latin text in the same string (e.g. "Перейти в App
   // Store" — Store in true General Sans 500, Перейти в fauxbold-ish Inter).
-  // No 900 — nothing in the codebase requests that weight.
-  weight: ["400", "500"],
+  // 600: semibold step titles / pull-quote on the project pages.
+  weight: ["400", "500", "600"],
   variable: "--font-inter",
 });
 

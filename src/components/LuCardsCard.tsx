@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 /*
   LU Cards — composite card per Figma structure (node 11:104 default / 11:355 hover):
@@ -41,7 +42,7 @@ export default function LuCardsCard({
   priority = false,
 }: LuCardsCardProps) {
   return (
-    <a
+    <Link
       href={href}
       className="project-card project-card--half"
       style={{
@@ -236,6 +237,6 @@ export default function LuCardsCard({
           <span>Посмотреть проект</span>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }

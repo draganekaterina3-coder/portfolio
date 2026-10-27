@@ -138,6 +138,7 @@ export default function WorksSection() {
               imageWidth={2360}
               imageHeight={1328}
               title="Суперапп для электромобиля (NDA)"
+              href="/projects/atom-ev"
               description="Диагностировали падение SUS с 84% до 75% и построили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP"
               tags={["Кроссплатформа", "SWP"]}
             />
@@ -156,6 +157,7 @@ export default function WorksSection() {
           >
             <LuCardsCard
               title="LU Cards"
+              href="/projects/lu-cards"
               description="Механика с ежедневной картой увеличила возвращаемость: reveal-анимация превратила открытие карты в ритуал и подняла приложение в топ-100 App Store"
               tags={["iOS", "Android"]}
             />
@@ -171,6 +173,7 @@ export default function WorksSection() {
               imageWidth={1160}
               imageHeight={1328}
               title="Сuverse"
+              href="/projects/cuverse"
               description="Спроектировала UX для крипто-продукта с высоким порогом входа — от онбординга до мониторинга хешрейта"
               tags={["iOS", "Android"]}
             />
@@ -191,6 +194,7 @@ export default function WorksSection() {
               imageWidth={2360}
               imageHeight={1328}
               title="Европейский телеком (NDA)"
+              href="/projects/european-telecom"
               description="Как JTBD-исследование изменило бизнес-модель, а онбординг снизил нагрузку на поддержку"
               tags={["iOS", "Android", "Web", "Admin panel"]}
             />
@@ -209,12 +213,14 @@ export default function WorksSection() {
             imageOpacity={0.9}
             objectPosition="30% center"
             tintColor="rgba(0,83,161,0.25)"
+            href="/projects/atom-ev"
             title="Суперапп для электромобиля (NDA)"
             description="Диагностировали падение SUS с 84% до 75% и построили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP"
             tags={["Кроссплатформа", "SWP"]}
           />
           <MobileProjectCard
             imageSlot={<LuCardsMobileImage />}
+            href="/projects/lu-cards"
             title="LU Cards"
             description="Механика с ежедневной картой увеличила возвращаемость: reveal-анимация превратила открытие карты в ритуал и подняла приложение в топ-100 App Store"
             tags={["iOS", "Android"]}
@@ -225,6 +231,7 @@ export default function WorksSection() {
             imageHeight={1328}
             objectPosition="center bottom"
             tintColor="rgba(4,29,27,0.2)"
+            href="/projects/cuverse"
             title="Сuverse"
             description="Спроектировала UX для крипто-продукта с высоким порогом входа — от онбординга до мониторинга хешрейта"
             tags={["iOS", "Android"]}
@@ -235,6 +242,7 @@ export default function WorksSection() {
             imageHeight={1328}
             imageOpacity={1}
             objectPosition="center 15%"
+            href="/projects/european-telecom"
             title="Европейский телеком (NDA)"
             description="Как JTBD-исследование изменило бизнес-модель, а онбординг снизил нагрузку на поддержку"
             tags={["iOS", "Android", "Web", "Admin panel"]}
