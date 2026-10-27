@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-const links = [
+type MenuLink = { href: string; label: string };
+
+const defaultLinks: MenuLink[] = [
   { href: "#home", label: "Home" },
   { href: "#works", label: "Works" },
   { href: "#about", label: "About" },
@@ -14,7 +16,8 @@ const links = [
   in globals.css). Desktop/tablet nav is untouched and stays visible
   above that breakpoint.
 */
-export default function MobileMenu() {
+// `links` lets inner pages point at "/#works" etc. instead of same-page anchors.
+export default function MobileMenu({ links = defaultLinks }: { links?: MenuLink[] }) {
   const [open, setOpen] = useState(false);
 
   // Lock page scroll while the overlay is open.

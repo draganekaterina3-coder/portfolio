@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 /*
   Purpose-built mobile card (<=768px) — NOT an automatic collapse of the
@@ -74,7 +75,7 @@ export default function MobileProjectCard({
   buttonIcon = false,
 }: MobileProjectCardProps) {
   return (
-    <a href={href} className="mobile-project-card">
+    <Link href={href} className="mobile-project-card">
       <div className="mobile-project-card__clip">
         <div className="mobile-project-card__image" style={{ aspectRatio }}>
           {imageSlot ? (
@@ -133,6 +134,6 @@ export default function MobileProjectCard({
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }

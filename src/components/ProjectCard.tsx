@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type Layer =
   | { kind: "image"; src: string; opacity?: number; objectPosition?: string }
@@ -68,7 +69,7 @@ export default function ProjectCard({
     // bug where transform + overflow:hidden + border-radius on the same
     // element can leave un-clipped slivers at the corners. The actual clip
     // lives on the static inner .project-card__clip.
-    <a
+    <Link
       href={href}
       className={`project-card ${fullWidth ? "project-card--full" : "project-card--half"}`}
       style={{
@@ -226,6 +227,6 @@ export default function ProjectCard({
           {buttonIcon && <ArrowIcon color="#010101" />}
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
