@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { nb } from "@/lib/typography";
 
 /*
   Purpose-built mobile card (<=768px) — NOT an automatic collapse of the
@@ -115,8 +116,8 @@ export default function MobileProjectCard({
         </div>
 
         <div className="mobile-project-card__body">
-          <h3 className="mobile-project-card__title">{title}</h3>
-          <p className="mobile-project-card__desc">{description}</p>
+          <h3 className="mobile-project-card__title">{nb(title)}</h3>
+          <p className="mobile-project-card__desc">{nb(description)}</p>
 
           {tags.length > 0 && (
             <div className="mobile-project-card__tags">
@@ -129,7 +130,7 @@ export default function MobileProjectCard({
           )}
 
           <div className="mobile-project-card__button">
-            <span>{buttonText}</span>
+            <span>{nb(buttonText)}</span>
             {buttonIcon && <ArrowIcon />}
           </div>
         </div>

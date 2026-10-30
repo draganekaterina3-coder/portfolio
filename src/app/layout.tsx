@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import FloatingContact from "@/components/FloatingContact";
 import { siteUrl, siteTitle, siteDescription } from "@/lib/site-config";
 
 const inter = Inter({
@@ -74,7 +75,10 @@ export default function RootLayout({
           href="https://api.fontshare.com/v2/css?f[]=general-sans@500&display=swap"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <FloatingContact />
+      </body>
     </html>
   );
 }

@@ -523,14 +523,14 @@ a {
 .mobile-project-card__title {
   font-family: var(--font-general-sans);
   font-weight: 500;
-  font-size: clamp(20px, 5vw, 24px);
+  font-size: 20px;
   letter-spacing: -0.5px;
   line-height: 1.2;
   color: #f2fff6;
 }
 
 .mobile-project-card__desc {
-  font-size: clamp(14px, 3.6vw, 16px);
+  font-size: clamp(15px, 3.9vw, 17px);
   line-height: 1.5;
   color: rgba(242, 255, 246, 0.7);
 }
@@ -568,6 +568,43 @@ a {
   letter-spacing: -0.3px;
   min-height: 44px;
   width: fit-content;
+}
+
+/* ─── Mobile type scale (<=768) ───────────────────────────────────────
+   One scale for the whole site, top to bottom:
+     name / case title  44–97  ›  section titles 32 (works headings 24)  ›  card titles 20
+     ›  body & values 18  ›  labels, captions, card text 16
+   Desktop and tablet (>=769px) keep the Figma sizes untouched. */
+@media (max-width: 768px) {
+  /* Hero intro: gray labels step down so the white values lead. */
+  .hero-intro-col {
+    gap: 8px !important;
+  }
+  .hero-intro-col > span {
+    font-size: 16px;
+  }
+  .hero-intro-col > div {
+    font-size: 18px;
+  }
+
+  /* "Избранные проекты" / "Другие проекты" were 20px = same as a card title. */
+  .works-heading {
+    font-family: var(--font-general-sans);
+    font-weight: 500 !important;
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.05em;
+  }
+
+  .about-heading {
+    font-size: 32px !important;
+    letter-spacing: -0.05em !important;
+  }
+  .about-copy {
+    font-size: 18px !important;
+    line-height: 1.45 !important;
+    gap: 16px !important;
+  }
 }
 
 /* ─── Logo strip: horizontal auto-scroll below desktop ───────────────
@@ -682,58 +719,131 @@ a {
   }
 }
 
-/* ─── Contact: stack + reflow on tablet/mobile ───────────────────── */
+/* ─── Footer (dark, no card) ─────────────────────────────────────────
+   Desktop/tablet: big accent headline, CTA + links in one row, copyright
+   line under a hairline. <=768: headline, full-width CTA, links as rows. */
+
+.footer-headline {
+  font-family: var(--font-general-sans);
+  font-weight: 500;
+  font-size: 72px;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  color: #f2fff6;
+  max-width: 860px;
+}
+.footer-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+  margin-top: 48px;
+}
+.contact-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 12px 20px;
+  border-radius: 48px;
+  background: #f2fff6;
+  color: #010101;
+  font-family: var(--font-general-sans);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.4;
+  letter-spacing: -1.2px;
+  white-space: nowrap;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+}
+.footer-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #a0f6bb;
+  font-family: var(--font-general-sans);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.4;
+  letter-spacing: -1.2px;
+  white-space: nowrap;
+}
+.footer-links svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.footer-copy {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 80px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(242, 255, 246, 0.18);
+  font-size: 16px;
+  line-height: 1.4;
+  color: rgba(242, 255, 246, 0.6);
+}
 
 @media (max-width: 1279px) {
-  .contact-card {
-    flex-wrap: wrap !important;
+  .footer-headline {
+    font-size: clamp(44px, 6.6vw, 72px);
+  }
+  .footer-copy {
+    margin-top: 64px;
   }
 }
 
-/* Mobile order: headline → button → links — links stack in a column
-   directly under the CTA, left-aligned, same rhythm as the rest. */
 @media (max-width: 768px) {
-  .contact-card {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 28px !important;
-    padding: 32px 24px !important;
+  .footer-headline {
+    font-size: 32px;
+    line-height: 1.15;
   }
-  .contact-headline {
-    font-size: clamp(28px, 6vw, 40px) !important;
-    letter-spacing: -0.04em !important;
-    width: 100% !important;
-  }
-  .contact-right {
-    align-self: auto !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 2px !important;
-    /* On top of the card's own 28px gap below the button — the button
-       needs to read as clearly separate from the link list, not just
-       another item in the same rhythm. */
-    margin-top: 16px !important;
-  }
-  .contact-right a {
-    font-size: clamp(16px, 4.2vw, 20px) !important;
-    letter-spacing: -0.03em !important;
-    gap: 6px !important;
-    min-height: 36px !important;
-    align-items: center !important;
-  }
-  .contact-right svg {
-    width: 18px !important;
-    height: 18px !important;
-  }
-}
-
-@media (max-width: 479px) {
-  .contact-card {
-    padding: 28px 20px !important;
+  .footer-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 28px;
   }
   .contact-button {
-    width: 100% !important;
-    justify-content: center !important;
+    width: 100%;
+    min-height: 52px;
+    font-size: 20px;
+    letter-spacing: -0.04em;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 0;
+  }
+  .footer-links a {
+    min-height: 56px;
+    border-top: 1px solid rgba(242, 255, 246, 0.18);
+    color: #f2fff6;
+    font-size: 18px;
+    letter-spacing: -0.03em;
+  }
+  .footer-links a:last-child {
+    border-bottom: 1px solid rgba(242, 255, 246, 0.18);
+  }
+  .footer-links svg {
+    width: 20px;
+    height: 20px;
+  }
+  /* The last link row already ends with a hairline. */
+  .footer-copy {
+    margin-top: 0;
+    padding-top: 20px;
+    border-top: 0;
+    font-size: 14px;
+  }
+  .footer-role {
+    display: none;
   }
 }
 
@@ -830,7 +940,7 @@ a {
   justify-content: center;
   gap: 100px;
   padding: 50px;
-  border-radius: 32px;
+  border-radius: 16px;
   background: #f2fff6;
   backdrop-filter: blur(10px);
   color: #010101;
@@ -873,7 +983,7 @@ a {
   padding-top: 70px;
   display: flex;
   flex-direction: column;
-  gap: 64px;
+  gap: 70px;
 }
 .pp-row {
   display: flex;
@@ -897,6 +1007,20 @@ a {
 }
 .pp-row__body p + p {
   margin-top: 26px;
+}
+/* A text block that touches a figure carries 40px extra on that side
+   (Figma: "Project description contain" pt/pb 40). */
+.pp-row--pt {
+  padding-top: 40px;
+}
+.pp-row--pb {
+  padding-bottom: 40px;
+}
+/* "\n" in the copy is a deliberate line break from the design. */
+.pp-row__body p,
+.pp-steps p,
+.pp-meta dd {
+  white-space: pre-line;
 }
 .pp-steps {
   list-style: none;
@@ -968,7 +1092,7 @@ a {
 .pp-next {
   display: flex;
   justify-content: flex-end;
-  padding-top: 100px;
+  padding-top: 110px;
 }
 .pp-next a {
   display: flex;
@@ -1006,6 +1130,12 @@ a {
     padding-top: 48px;
     gap: 56px;
   }
+  .pp-row--pt {
+    padding-top: 24px;
+  }
+  .pp-row--pb {
+    padding-bottom: 24px;
+  }
   .pp-next {
     padding-top: 64px;
   }
@@ -1039,25 +1169,79 @@ a {
   }
   .pp-metrics {
     flex-direction: column;
-    gap: 32px;
+    gap: 28px;
     padding: 32px 24px;
-    border-radius: 24px;
+    border-radius: 16px;
   }
+  /* Mobile type scale (case pages), top to bottom:
+     title 44–56 › section title / stat 32 › body & values 18 › labels & captions 16 */
   .pp-metric__value {
-    font-size: clamp(32px, 9vw, 40px);
+    font-size: 32px;
+  }
+  .pp-metric__label {
+    font-size: 16px;
+  }
+  .pp-subtitle {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+  .pp-meta {
+    gap: 20px;
+  }
+  .pp-meta__item {
+    gap: 4px;
+  }
+  .pp-meta dt {
+    font-size: 16px;
+  }
+  .pp-meta dd {
+    font-size: 18px;
+    line-height: 1.4;
   }
   .pp-body {
     padding-top: 40px;
-    gap: 40px;
+    gap: 64px;
+  }
+  .pp-row--pt,
+  .pp-row--pb {
+    padding-top: 0;
+    padding-bottom: 0;
   }
   .pp-row {
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
   .pp-row__title {
     flex: none;
-    font-size: clamp(28px, 7vw, 40px);
-    letter-spacing: -0.04em;
+    font-size: 32px;
+    letter-spacing: -0.05em;
+  }
+  .pp-row__body,
+  .pp-steps li p {
+    font-size: 18px;
+    line-height: 1.45;
+  }
+  .pp-row__body p + p {
+    margin-top: 20px;
+  }
+  .pp-intro-text p + p {
+    margin-top: 20px;
+  }
+  .pp-steps {
+    gap: 32px;
+  }
+  .pp-steps h3 {
+    font-size: 18px;
+  }
+  .pp-figure {
+    gap: 12px;
+  }
+  .pp-figure--half {
+    gap: 12px;
+  }
+  .pp-caption {
+    font-size: 16px;
+    line-height: 1.4;
   }
   .pp-row__body {
     width: 100%;
@@ -1077,5 +1261,107 @@ a {
   }
   .pp-next {
     padding-top: 48px;
+  }
+  .pp-next a {
+    font-size: 20px;
+    letter-spacing: -0.05em;
+  }
+}
+
+/* ─── Quick-contact: floating pill (mobile) + slide-in bar (desktop) ─── */
+
+.float-pill,
+.float-bar {
+  position: fixed;
+  z-index: 900;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.float-pill {
+  display: none;
+}
+
+.float-bar {
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(1, 1, 1, 0.82);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(242, 255, 246, 0.12);
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+.float-bar--show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.float-bar__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 50px;
+}
+.float-bar__nav {
+  display: flex;
+  gap: 40px;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #f2fff6;
+}
+.float-bar__cta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 48px;
+  background: #f2fff6;
+  color: #010101;
+  font-family: var(--font-general-sans);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+.float-bar__cta svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .float-bar {
+    display: none;
+  }
+  .float-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    left: 50%;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    padding: 12px 22px;
+    border-radius: 48px;
+    background: #f2fff6;
+    color: #010101;
+    font-family: var(--font-general-sans);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    transform: translate(-50%, 160%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .float-pill--show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .float-pill svg {
+    width: 20px;
+    height: 20px;
   }
 }

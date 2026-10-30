@@ -4,6 +4,7 @@ import type { FigureImage, Project, ProjectBlock } from "@/lib/projects";
 import ProjectNav from "./ProjectNav";
 import ContactSection from "./ContactSection";
 import ScrollReveal from "./ScrollReveal";
+import { nb } from "@/lib/typography";
 
 const ArrowUpRight = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
@@ -54,16 +55,28 @@ function FigureFrame({ image, sizes }: { image: FigureImage; sizes: string }) {
   );
 }
 
-function Block({ block }: { block: ProjectBlock }) {
+// Text rows that sit right next to a figure get 40px of extra air on that side
+// (Figma: every description block touching an image carries pt/pb 40 on top of
+// the 70px gap between blocks).
+function Block({
+  block,
+  padTop,
+  padBottom,
+}: {
+  block: ProjectBlock;
+  padTop: boolean;
+  padBottom: boolean;
+}) {
+  const rowClass = `pp-row${padTop ? " pp-row--pt" : ""}${padBottom ? " pp-row--pb" : ""}`;
   switch (block.kind) {
     case "text":
       return (
-        <section className="pp-row">
-          <h2 className="pp-row__title">{block.title}</h2>
+        <section className={rowClass}>
+          <h2 className="pp-row__title">{nb(block.title)}</h2>
           <div className="pp-row__body">
             {block.paragraphs.map((p, i) => (
               <p key={i} style={p.strong ? { fontWeight: 600 } : undefined}>
-                {p.text}
+                {nb(p.text)}
               </p>
             ))}
           </div>
@@ -71,14 +84,14 @@ function Block({ block }: { block: ProjectBlock }) {
       );
     case "steps":
       return (
-        <section className="pp-row">
-          <h2 className="pp-row__title">{block.title}</h2>
+        <section className={rowClass}>
+          <h2 className="pp-row__title">{nb(block.title)}</h2>
           <div className="pp-row__body">
             {block.intro && (
               <div className="pp-intro-text">
                 {block.intro.map((p, i) => (
                   <p key={i} style={p.strong ? { fontWeight: 600 } : undefined}>
-                    {p.text}
+                    {nb(p.text)}
                   </p>
                 ))}
               </div>
@@ -86,8 +99,8 @@ function Block({ block }: { block: ProjectBlock }) {
             <ol className="pp-steps">
               {block.steps.map((s) => (
                 <li key={s.title}>
-                  <h3>{s.title}</h3>
-                  <p>{s.text}</p>
+                  <h3>{nb(s.title)}</h3>
+                  <p>{nb(s.text)}</p>
                 </li>
               ))}
             </ol>
@@ -98,7 +111,7 @@ function Block({ block }: { block: ProjectBlock }) {
       return (
         <figure className="pp-figure">
           <FigureFrame image={block.image} sizes="(max-width: 1279px) 100vw, 1180px" />
-          <figcaption className="pp-caption">{block.caption}</figcaption>
+          <figcaption className="pp-caption">{nb(block.caption)}</figcaption>
         </figure>
       );
     case "figure-pair":
@@ -107,13 +120,15 @@ function Block({ block }: { block: ProjectBlock }) {
           {block.items.map((item) => (
             <figure key={item.caption} className="pp-figure pp-figure--half">
               <FigureFrame image={item.image} sizes="(max-width: 768px) 100vw, (max-width: 1279px) 50vw, 580px" />
-              <figcaption className="pp-caption">{item.caption}</figcaption>
+              <figcaption className="pp-caption">{nb(item.caption)}</figcaption>
             </figure>
           ))}
         </div>
       );
   }
 }
+
+const isMedia = (b?: ProjectBlock) => b?.kind === "figure" || b?.kind === "figure-pair";
 
 export default function ProjectPage({ project }: { project: Project }) {
   return (
@@ -127,16 +142,16 @@ export default function ProjectPage({ project }: { project: Project }) {
             <div className="pp-title-col">
               {/* Long titles ("Travel eSIM App (…)") get a smaller size so they don't wrap to 5 lines. */}
               <h1 className={project.title.length > 14 ? "pp-title pp-title--long" : "pp-title"}>
-                {project.title}
+                {nb(project.title)}
               </h1>
-              {project.subtitle && <p className="pp-subtitle">{project.subtitle}</p>}
+              {project.subtitle && <p className="pp-subtitle">{nb(project.subtitle)}</p>}
             </div>
             <dl className="pp-meta">
               {project.meta.map((m) => (
                 <div key={m.label} className="pp-meta__item">
-                  <dt>{m.label}</dt>
+                  <dt>{nb(m.label)}</dt>
                   <dd>
-                    {m.value}
+                    {m.value && nb(m.value)}
                     {m.links && (
                       <span className="pp-meta__links">
                         {m.links.map((l) => (
@@ -159,7 +174,7 @@ export default function ProjectPage({ project }: { project: Project }) {
             {project.metrics.map((m) => (
               <li key={m.value} className="pp-metric">
                 <span className="pp-metric__value">{m.value}</span>
-                <span className="pp-metric__label">{m.label}</span>
+                <span className="pp-metric__label">{nb(m.label)}</span>
               </li>
             ))}
           </ul>
@@ -168,14 +183,18 @@ export default function ProjectPage({ project }: { project: Project }) {
         <div className="container-1280 responsive-px pp-body">
           {project.blocks.map((block, i) => (
             <ScrollReveal key={i}>
-              <Block block={block} />
+              <Block
+                block={block}
+                padTop={isMedia(project.blocks[i - 1])}
+                padBottom={isMedia(project.blocks[i + 1])}
+              />
             </ScrollReveal>
           ))}
         </div>
 
         <div className="container-1280 responsive-px pp-next">
           <Link href={project.nextHref}>
-            Следующий проект
+            {nb("Следующий проект")}
             <ArrowRight />
           </Link>
         </div>
