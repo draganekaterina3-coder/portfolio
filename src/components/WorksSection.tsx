@@ -271,6 +271,8 @@ export default function WorksSection() {
             imageWidth={1160}
             imageHeight={1328}
             title="Frank by БАСТА"
+            href="https://frankmeat.ru/"
+            external
             description="4 режима заказа: доставка, самовывоз, групповой, блюдо за баллы. Решение CRM-ограничений через контекстный сбор данных пользователя"
             tags={["Web", "Кроссплатформа"]}
             tagBorderColor="rgba(232,247,210,0.4)"
@@ -286,10 +288,13 @@ export default function WorksSection() {
             imageWidth={1160}
             imageHeight={1328}
             title="Flawery"
+            href="https://apps.apple.com/ru/app/%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0-%D1%86%D0%B2%D0%B5%D1%82%D0%BE%D0%B2-flawery-%D1%86%D0%B2%D0%B5%D1%82%D1%8B/id1293147226"
+            androidHref="https://play.google.com/store/apps/details?id=ru.flawery.client.app&pcampaignid=web_share"
+            external
             description="Работа велась параллельно со студией-конкурентом — по результатам прототипов и концепции наша команда выиграла право дальнейшей разработки приложения"
             tags={["iOS", "Android"]}
             tagBorderColor="rgba(232,247,210,0.4)"
-            buttonText="Перейти в App Store"
+            buttonText="Перейти в Store"
             buttonIcon
           />
         </div>
@@ -306,6 +311,8 @@ export default function WorksSection() {
           imageHeight={1328}
           objectPosition="center 78%"
           title="Frank by БАСТА"
+          href="https://frankmeat.ru/"
+          external
           description="4 режима заказа: доставка, самовывоз, групповой, блюдо за баллы. Решение CRM-ограничений через контекстный сбор данных пользователя"
           tags={["Web", "Кроссплатформа"]}
           buttonText="Перейти на сайт"
@@ -319,9 +326,12 @@ export default function WorksSection() {
           tintColor="rgba(196,136,147,0.4)"
           tintBlendMode="soft-light"
           title="Flawery"
+          href="https://apps.apple.com/ru/app/%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0-%D1%86%D0%B2%D0%B5%D1%82%D0%BE%D0%B2-flawery-%D1%86%D0%B2%D0%B5%D1%82%D1%8B/id1293147226"
+          androidHref="https://play.google.com/store/apps/details?id=ru.flawery.client.app&pcampaignid=web_share"
+          external
           description="Работа велась параллельно со студией-конкурентом — по результатам прототипов и концепции наша команда выиграла право дальнейшей разработки приложения"
           tags={["iOS", "Android"]}
-          buttonText="Перейти в App Store"
+          buttonText="Перейти в Store"
           buttonIcon
         />
       </div>

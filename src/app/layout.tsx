@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import StoreLinks from "@/components/StoreLinks";
 import FloatingContact from "@/components/FloatingContact";
 import { siteUrl, siteTitle, siteDescription } from "@/lib/site-config";
 
@@ -78,6 +79,7 @@ export default function RootLayout({
       <body>
         {children}
         <FloatingContact />
+        <StoreLinks />
       </body>
     </html>
   );

@@ -11,6 +11,10 @@ type ProjectCardProps = {
   description: string;
   tags: string[];
   href?: string;
+  /** Opens in a new tab (links that leave the site). */
+  external?: boolean;
+  /** Play Store link for visitors who are not on Apple devices (see StoreLinks). */
+  androidHref?: string;
   fullWidth?: boolean;
   layers: Layer[];
   imageWidth?: number;
@@ -46,6 +50,8 @@ export default function ProjectCard({
   description,
   tags,
   href = "#",
+  external = false,
+  androidHref,
   fullWidth = false,
   layers,
   imageWidth = 2360,
@@ -72,6 +78,8 @@ export default function ProjectCard({
     // lives on the static inner .project-card__clip.
     <Link
       href={href}
+      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+      data-android-href={androidHref}
       className={`project-card ${fullWidth ? "project-card--full" : "project-card--half"}`}
       style={{
         position: "relative",

@@ -50,6 +50,10 @@ type MobileProjectCardProps = {
   tintBlendMode?: React.CSSProperties["mixBlendMode"];
   imageSlot?: React.ReactNode;
   href?: string;
+  /** Opens in a new tab (links that leave the site). */
+  external?: boolean;
+  /** Play Store link for visitors who are not on Apple devices (see StoreLinks). */
+  androidHref?: string;
   buttonText?: string;
   buttonIcon?: boolean;
 };
@@ -72,11 +76,18 @@ export default function MobileProjectCard({
   tintBlendMode = "normal",
   imageSlot,
   href = "#",
+  external = false,
+  androidHref,
   buttonText = "Посмотреть проект",
   buttonIcon = false,
 }: MobileProjectCardProps) {
   return (
-    <Link href={href} className="mobile-project-card">
+    <Link
+      href={href}
+      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+      data-android-href={androidHref}
+      className="mobile-project-card"
+    >
       <div className="mobile-project-card__clip">
         <div className="mobile-project-card__image" style={{ aspectRatio }}>
           {imageSlot ? (
