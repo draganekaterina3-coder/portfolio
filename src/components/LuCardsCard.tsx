@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { nb } from "@/lib/typography";
 
 /*
   LU Cards — composite card per Figma structure (node 11:104 default / 11:355 hover):
@@ -175,7 +176,7 @@ export default function LuCardsCard({
                 color: "#f2fff6",
               }}
             >
-              {title}
+              {nb(title)}
             </h3>
             <p
               style={{
@@ -185,7 +186,7 @@ export default function LuCardsCard({
                 color: "#f2fff6",
               }}
             >
-              {description}
+              {nb(description)}
             </p>
           </div>
           <div style={{ display: "flex", gap: "8px" }}>

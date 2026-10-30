@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { nb } from "@/lib/typography";
 
 type Layer =
   | { kind: "image"; src: string; opacity?: number; objectPosition?: string }
@@ -156,7 +157,7 @@ export default function ProjectCard({
                   color: "#f2fff6",
                 }}
               >
-                {title}
+                {nb(title)}
               </h3>
             )}
 
@@ -169,7 +170,7 @@ export default function ProjectCard({
                   color: "#f2fff6",
                 }}
               >
-                {description}
+                {nb(description)}
               </p>
             )}
           </div>
@@ -223,7 +224,7 @@ export default function ProjectCard({
             color: "#010101",
           }}
         >
-          <span>{buttonText}</span>
+          <span>{nb(buttonText)}</span>
           {buttonIcon && <ArrowIcon color="#010101" />}
         </div>
       </div>

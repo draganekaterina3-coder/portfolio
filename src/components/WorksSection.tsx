@@ -4,6 +4,7 @@ import LuCardsCard from "./LuCardsCard";
 import LogoStrip from "./LogoStrip";
 import MobileProjectCard from "./MobileProjectCard";
 import ScrollReveal from "./ScrollReveal";
+import { nb } from "@/lib/typography";
 
 /*
   LU Cards mobile composition — phone mockup + live GIF, same asset stack
@@ -121,7 +122,7 @@ export default function WorksSection() {
       {/* ── Row 1: heading + SuperApp (h=810) ── */}
       <div className="works-top-pad" style={{ paddingTop: "100px" }}>
         <div className="container-1280 responsive-px" style={{ padding: "0 50px" }}>
-          <h2 style={headingStyle}>Избранные проекты</h2>
+          <h2 className="works-heading" style={headingStyle}>{nb("Избранные проекты")}</h2>
         </div>
         <ScrollReveal>
           <div
@@ -252,7 +253,7 @@ export default function WorksSection() {
 
       {/* ── "Другие проекты" heading (h=96) ── */}
       <div className="container-1280 responsive-px works-other-heading" style={{ padding: "70px 50px 0" }}>
-        <h2 style={headingStyle}>Другие проекты</h2>
+        <h2 className="works-heading" style={headingStyle}>{nb("Другие проекты")}</h2>
       </div>
 
       {/* ── Row 4: Frenk + Flawery (h=684) ── */}

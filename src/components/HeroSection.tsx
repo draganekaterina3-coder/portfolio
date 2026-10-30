@@ -1,4 +1,5 @@
 import MobileMenu from "./MobileMenu";
+import { nb } from "@/lib/typography";
 
 export default function HeroSection() {
   return (
@@ -121,7 +122,7 @@ export default function HeroSection() {
               Специализация
             </span>
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <span>Product Design · Full-cycle · Mobile App</span>
+              <span>{nb("Product Design · Full-cycle · Mobile App")}</span>
               <span>Дизайн-системы · UX Research</span>
             </div>
           </div>
@@ -138,8 +139,8 @@ export default function HeroSection() {
           >
             <span style={{ color: "rgba(242,255,246,0.7)" }}>Опыт</span>
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <span>5 лет Product Design</span>
-              <span>2 года Менторства</span>
+              <span>{nb("5 лет Product Design")}</span>
+              <span>{nb("2 года Менторства")}</span>
             </div>
           </div>
 

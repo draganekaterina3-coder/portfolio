@@ -1,5 +1,7 @@
 import Image from "next/image";
 import ScrollReveal from "./ScrollReveal";
+import Typo from "./Typo";
+import { nb } from "@/lib/typography";
 
 /*
   About section: node 11:250, y=3631, height=564px
@@ -103,7 +105,7 @@ export default function AboutSection() {
               width: "520px",
             }}
           >
-            Системный подход — живой дизайн
+            {nb("Системный подход — живой дизайн")}
           </h2>
 
           {/* photo-2: bottom-aligned, 244×142 */}
@@ -145,6 +147,7 @@ export default function AboutSection() {
           }}
         >
           <div
+            className="about-copy"
             style={{
               fontSize: "20px",
               fontWeight: 400,
@@ -155,6 +158,7 @@ export default function AboutSection() {
               gap: "26px",
             }}
           >
+            <Typo>
             <p>
               <strong style={{ fontWeight: 500 }}>
                 Работаю в полном цикле разработки:{" "}
@@ -199,6 +203,7 @@ export default function AboutSection() {
                 Посмотреть на YouTube <ArrowIcon />
               </a>
             </p>
+            </Typo>
           </div>
         </div>
       </div>
