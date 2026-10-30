@@ -216,7 +216,7 @@ const luCards: Project = {
       ],
     },
   ],
-  nextHref: "/#works",
+  nextHref: "/projects/cuverse",
 };
 
 const telecom: Project = {
@@ -343,7 +343,7 @@ const telecom: Project = {
       ],
     },
   ],
-  nextHref: "/#works",
+  nextHref: "/projects/ev-superapp",
 };
 
 const evSuperapp: Project = {
@@ -447,7 +447,7 @@ const evSuperapp: Project = {
       ],
     },
   ],
-  nextHref: "/#works",
+  nextHref: "/projects/lu-cards",
 };
 
 const cuverse: Project = {
@@ -558,7 +558,7 @@ const cuverse: Project = {
       ],
     },
   ],
-  nextHref: "/#works",
+  nextHref: "/projects/european-telecom",
 };
 
 export const projects: Project[] = [luCards, telecom, evSuperapp, cuverse];
