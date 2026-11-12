@@ -173,7 +173,7 @@ export default function WorksSection() {
               ]}
               imageWidth={1160}
               imageHeight={1328}
-              title="Сuverse"
+              title="Cuverse"
               href="/projects/cuverse"
               description="Спроектировала UX для крипто-продукта с высоким порогом входа — от онбординга до мониторинга хешрейта"
               tags={["iOS", "Android"]}
@@ -233,7 +233,7 @@ export default function WorksSection() {
             objectPosition="center bottom"
             tintColor="rgba(4,29,27,0.2)"
             href="/projects/cuverse"
-            title="Сuverse"
+            title="Cuverse"
             description="Спроектировала UX для крипто-продукта с высоким порогом входа — от онбординга до мониторинга хешрейта"
             tags={["iOS", "Android"]}
           />
