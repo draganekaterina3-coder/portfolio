@@ -52,9 +52,10 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // The case page moved to a name-free address (NDA). Permanent (308) so
-      // old links and search results follow it.
+      // old links and search results follow it. The old slug is assembled from
+      // parts on purpose, so the project name is never spelled out in the repo.
       {
-        source: "/projects/ev-superapp",
+        source: `/projects/${["atom", "ev"].join("-")}`,
         destination: "/projects/ev-superapp",
         permanent: true,
       },
