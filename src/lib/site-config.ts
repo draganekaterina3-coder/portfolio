@@ -7,13 +7,12 @@
 // client bundle. Deliberately NOT prefixed NEXT_PUBLIC_: that prefix tells
 // Next.js to inline the value into client JS at build time, which this has
 // no reason to do and would just be unused bytes shipped to the browser.
-// SITE_URL should be set to the real domain once one exists; VERCEL_URL
-// (auto-populated by Vercel on every deploy, no setup needed there) is a
-// working fallback until then so metadataBase/canonical/sitemap/robots
-// resolve to a real, reachable URL instead of localhost.
-export const siteUrl =
-  process.env.SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+//
+// Always the main domain: canonical, og:url and the sitemap must point at it
+// from every deployment, including preview deployments (VERCEL_URL used to be
+// the fallback here, which put the preview domain into canonical and og:url).
+// Set SITE_URL to override it, e.g. once a custom domain exists.
+export const siteUrl = process.env.SITE_URL ?? "https://draganekaterina.vercel.app";
 
 export const siteTitle = "Dragan Ekaterina — Product Designer";
 

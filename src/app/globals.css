@@ -887,7 +887,7 @@ a {
 .pp-intro-text + .pp-steps {
   margin-top: 32px;
 }
-.pp-intro-text p + p {
+.pp-intro-text :is(p, ul) + :is(p, ul) {
   margin-top: 26px;
 }
 .pp-title {
@@ -967,6 +967,14 @@ a {
   white-space: pre-line;
 }
 @media (min-width: 1280px) {
+  /* Cases whose stat captions are written with their own line breaks use three
+     equal columns instead of the LU Cards Figma widths. */
+  .pp-metrics--fluid .pp-metric:nth-child(n) {
+    flex: 1 1 0;
+    width: auto;
+  }
+}
+@media (min-width: 1280px) {
   /* Figma sizes the three stats individually and centers the group. */
   .pp-metric {
     flex: none;
@@ -1005,8 +1013,28 @@ a {
   max-width: 62%;
   flex: none;
 }
-.pp-row__body p + p {
+.pp-row__body :is(p, ul) + :is(p, ul) {
   margin-top: 26px;
+}
+.pp-list {
+  list-style: disc;
+  padding-left: 22px;
+}
+.pp-list li + li {
+  margin-top: 8px;
+}
+.pp-list li {
+  white-space: pre-line;
+}
+.pp-figure__frame--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  background: rgba(242, 255, 246, 0.04);
+  border: 1px dashed rgba(242, 255, 246, 0.2);
+  color: rgba(242, 255, 246, 0.5);
 }
 /* A text block that touches a figure carries 40px extra on that side
    (Figma: "Project description contain" pt/pb 40). */
@@ -1028,7 +1056,7 @@ a {
   flex-direction: column;
   gap: 32px;
 }
-.pp-steps li {
+.pp-steps > li {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1217,15 +1245,18 @@ a {
     letter-spacing: -0.05em;
   }
   .pp-row__body,
-  .pp-steps li p {
+  .pp-steps li p,
+  .pp-list {
     font-size: 18px;
     line-height: 1.45;
   }
-  .pp-row__body p + p {
+  .pp-row__body :is(p, ul) + :is(p, ul),
+  .pp-intro-text :is(p, ul) + :is(p, ul) {
     margin-top: 20px;
   }
-  .pp-intro-text p + p {
-    margin-top: 20px;
+  /* Continuation blocks have no title: drop the empty column. */
+  .pp-row__title:empty {
+    display: none;
   }
   .pp-steps {
     gap: 32px;

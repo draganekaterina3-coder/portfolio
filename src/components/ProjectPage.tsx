@@ -55,6 +55,51 @@ function FigureFrame({ image, sizes }: { image: FigureImage; sizes: string }) {
   );
 }
 
+// Inline **bold** inside copy ("**Навигация.** После редизайна…").
+function Rich({ text }: { text: string }) {
+  return (
+    <>
+      {nb(text)
+        .split(/\*\*(.+?)\*\*/g)
+        .map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part))}
+    </>
+  );
+}
+
+// One copy string -> paragraphs. A blank line starts a new paragraph; a chunk
+// whose lines start with "• " becomes a bulleted list.
+function Paras({ text, strong }: { text: string; strong?: boolean }) {
+  return (
+    <>
+      {text.split("\n\n").map((chunk, i) =>
+        chunk.startsWith("• ") ? (
+          <ul key={i} className="pp-list">
+            {chunk.split("\n").map((line, j) => (
+              <li key={j}>
+                <Rich text={line.replace(/^• /, "")} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p key={i} style={strong ? { fontWeight: 600 } : undefined}>
+            <Rich text={chunk} />
+          </p>
+        ),
+      )}
+    </>
+  );
+}
+
+// A block without a title continues the section above it; the empty column
+// keeps its copy aligned with the rest of the section.
+function RowTitle({ title }: { title?: string }) {
+  return title ? (
+    <h2 className="pp-row__title">{nb(title)}</h2>
+  ) : (
+    <div className="pp-row__title" aria-hidden="true" />
+  );
+}
+
 // Text rows that sit right next to a figure get 40px of extra air on that side
 // (Figma: every description block touching an image carries pt/pb 40 on top of
 // the 70px gap between blocks).
@@ -72,12 +117,10 @@ function Block({
     case "text":
       return (
         <section className={rowClass}>
-          <h2 className="pp-row__title">{nb(block.title)}</h2>
+          <RowTitle title={block.title} />
           <div className="pp-row__body">
             {block.paragraphs.map((p, i) => (
-              <p key={i} style={p.strong ? { fontWeight: 600 } : undefined}>
-                {nb(p.text)}
-              </p>
+              <Paras key={i} text={p.text} strong={p.strong} />
             ))}
           </div>
         </section>
@@ -85,14 +128,12 @@ function Block({
     case "steps":
       return (
         <section className={rowClass}>
-          <h2 className="pp-row__title">{nb(block.title)}</h2>
+          <RowTitle title={block.title} />
           <div className="pp-row__body">
             {block.intro && (
               <div className="pp-intro-text">
                 {block.intro.map((p, i) => (
-                  <p key={i} style={p.strong ? { fontWeight: 600 } : undefined}>
-                    {nb(p.text)}
-                  </p>
+                  <Paras key={i} text={p.text} strong={p.strong} />
                 ))}
               </div>
             )}
@@ -100,7 +141,9 @@ function Block({
               {block.steps.map((s) => (
                 <li key={s.title}>
                   <h3>{nb(s.title)}</h3>
-                  <p>{nb(s.text)}</p>
+                  <div className="pp-step-text">
+                    <Paras text={s.text} />
+                  </div>
                 </li>
               ))}
             </ol>
@@ -110,8 +153,14 @@ function Block({
     case "figure":
       return (
         <figure className="pp-figure">
-          <FigureFrame image={block.image} sizes="(max-width: 1279px) 100vw, 1180px" />
-          <figcaption className="pp-caption">{nb(block.caption)}</figcaption>
+          {block.image ? (
+            <FigureFrame image={block.image} sizes="(max-width: 1279px) 100vw, 1180px" />
+          ) : (
+            <div className="pp-figure__frame pp-figure__frame--placeholder">
+              <span>{block.placeholder}</span>
+            </div>
+          )}
+          {block.caption && <figcaption className="pp-caption">{nb(block.caption)}</figcaption>}
         </figure>
       );
     case "figure-pair":
@@ -170,7 +219,7 @@ export default function ProjectPage({ project }: { project: Project }) {
         </div>
 
         <div className="container-1280 responsive-px pp-metrics-wrap">
-          <ul className="pp-metrics">
+          <ul className={project.fluidMetrics ? "pp-metrics pp-metrics--fluid" : "pp-metrics"}>
             {project.metrics.map((m) => (
               <li key={m.value} className="pp-metric">
                 <span className="pp-metric__value">{m.value}</span>
