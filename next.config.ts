@@ -49,18 +49,6 @@ const nextConfig: NextConfig = {
   // Don't advertise the framework in responses — trivial information
   // disclosure, no functional purpose.
   poweredByHeader: false,
-  async redirects() {
-    return [
-      // The case page moved to a name-free address (NDA). Permanent (308) so
-      // old links and search results follow it. The old slug is assembled from
-      // parts on purpose, so the project name is never spelled out in the repo.
-      {
-        source: `/projects/${["atom", "ev"].join("-")}`,
-        destination: "/projects/ev-superapp",
-        permanent: true,
-      },
-    ];
-  },
   async headers() {
     return [
       {
