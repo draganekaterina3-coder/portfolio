@@ -194,9 +194,9 @@ export default function WorksSection() {
               ]}
               imageWidth={2360}
               imageHeight={1328}
-              title="Европейский телеком (NDA)"
-              href="/projects/european-telecom"
-              description="Как JTBD-исследование изменило бизнес-модель, а онбординг снизил нагрузку на поддержку"
+              title="Barça Mobile"
+              href="/projects/barca-mobile"
+              description="Суперапп для фанатов за полтора месяца до релиза стал телеком-продуктом: JTBD-исследование изменило модель монетизации, а онбординг eSIM снизил нагрузку на поддержку"
               tags={["iOS", "Android", "Web", "Admin panel"]}
             />
           </div>
@@ -243,9 +243,9 @@ export default function WorksSection() {
             imageHeight={1328}
             imageOpacity={1}
             objectPosition="center 15%"
-            href="/projects/european-telecom"
-            title="Европейский телеком (NDA)"
-            description="Как JTBD-исследование изменило бизнес-модель, а онбординг снизил нагрузку на поддержку"
+            href="/projects/barca-mobile"
+            title="Barça Mobile"
+            description="Суперапп для фанатов за полтора месяца до релиза стал телеком-продуктом: JTBD-исследование изменило модель монетизации, а онбординг eSIM снизил нагрузку на поддержку"
             tags={["iOS", "Android", "Web", "Admin panel"]}
           />
         </div>
