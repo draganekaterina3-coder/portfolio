@@ -91,9 +91,9 @@ const LuCardsMobileImage = () => (
 /*
   Works section internal layout (from Figma metadata):
 
-  Frame 11:100  h=810   heading "Избранные проекты" at y=100 + SuperApp card at y=146
+  Frame 11:100  h=810   heading "Избранные проекты" at y=100 + Barça Mobile card at y=146
   Frame 11:103  h=684   LuCards (580px) + Cuverse (580px), cards at y=20, gap=20px
-  Frame 11:126  h=684   Telecom (1180px), card at y=20
+  Frame 11:126  h=684   EV superapp (1180px), card at y=20
   Frame 11:129  h=96    "Другие проекты" heading at y=70
   Frame 11:131  h=684   Frenk (580px) + Flawery (580px), cards at y=20, gap=20px
   Frame 11:134  h=224   Logo strip (handled by LogoStrip component)
@@ -103,8 +103,8 @@ const LuCardsMobileImage = () => (
     (see globals.css), keeping the hover-reveal card as-is.
   - <=768px: hover has no place on touch — the desktop rows (.desktop-only-row)
     are hidden and replaced by purpose-built always-visible MobileProjectCard
-    grids, grouped the same way as desktop ("Избранные проекты": SuperApp, LU
-    Cards, Cuverse, Telecom; "Другие проекты": Frenk, Flawery).
+    grids, grouped the same way as desktop ("Избранные проекты": Barça Mobile,
+    LU Cards, Cuverse, EV superapp; "Другие проекты": Frenk, Flawery).
 */
 
 const headingStyle: React.CSSProperties = {
@@ -119,7 +119,7 @@ export default function WorksSection() {
   return (
     <section id="works" style={{ backgroundColor: "#010101" }}>
 
-      {/* ── Row 1: heading + SuperApp (h=810) ── */}
+      {/* ── Row 1: heading + Barça Mobile (h=810) ── */}
       <div className="works-top-pad" style={{ paddingTop: "100px" }}>
         <div className="container-1280 responsive-px" style={{ padding: "0 50px" }}>
           <h2 className="works-heading" style={headingStyle}>{nb("Избранные проекты")}</h2>
@@ -133,15 +133,14 @@ export default function WorksSection() {
               fullWidth
               priority
               layers={[
-                { kind: "tint", color: "rgba(0,83,161,0.2)" },
-                { kind: "image", src: "/projects/SuperApp.png", opacity: 0.9 },
+                { kind: "image", src: "/projects/Telecom.png", opacity: 0.75 },
               ]}
               imageWidth={2360}
               imageHeight={1328}
-              title="Суперапп для электромобиля (NDA)"
-              href="/projects/ev-superapp"
-              description="Диагностировали падение SUS с 84% до 75% и построили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP"
-              tags={["Кроссплатформа", "SWP"]}
+              title="Barça Mobile"
+              href="/projects/barca-mobile"
+              description="Суперапп для футбольных фанатов за полтора месяца до релиза стал телеком-продуктом, а онбординг eSIM снизил нагрузку на поддержку"
+              tags={["iOS", "Android", "Web", "Admin panel"]}
             />
           </div>
         </ScrollReveal>
@@ -181,7 +180,7 @@ export default function WorksSection() {
           </div>
         </ScrollReveal>
 
-        {/* ── Row 3: Telecom (h=684) ── */}
+        {/* ── Row 3: EV superapp (h=684) ── */}
         <ScrollReveal>
           <div
             className="container-1280 responsive-px desktop-only-row"
@@ -190,14 +189,15 @@ export default function WorksSection() {
             <ProjectCard
               fullWidth
               layers={[
-                { kind: "image", src: "/projects/Telecom.png", opacity: 0.75 },
+                { kind: "tint", color: "rgba(0,83,161,0.2)" },
+                { kind: "image", src: "/projects/SuperApp.png", opacity: 0.9 },
               ]}
               imageWidth={2360}
               imageHeight={1328}
-              title="Barça Mobile"
-              href="/projects/barca-mobile"
-              description="Суперапп для фанатов за полтора месяца до релиза стал телеком-продуктом: JTBD-исследование изменило модель монетизации, а онбординг eSIM снизил нагрузку на поддержку"
-              tags={["iOS", "Android", "Web", "Admin panel"]}
+              title="Суперапп для электромобиля (NDA)"
+              href="/projects/ev-superapp"
+              description="Диагностировали падение SUS с 84% до 75% и построили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP"
+              tags={["Кроссплатформа", "SWP"]}
             />
           </div>
         </ScrollReveal>
@@ -208,16 +208,15 @@ export default function WorksSection() {
           style={{ marginTop: "20px", padding: "0 50px" }}
         >
           <MobileProjectCard
-            image="/projects/SuperApp.png"
+            image="/projects/Telecom.png"
             imageWidth={2360}
             imageHeight={1328}
-            imageOpacity={0.9}
-            objectPosition="30% center"
-            tintColor="rgba(0,83,161,0.25)"
-            href="/projects/ev-superapp"
-            title="Суперапп для электромобиля (NDA)"
-            description="Диагностировали падение SUS с 84% до 75% и построили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP"
-            tags={["Кроссплатформа", "SWP"]}
+            imageOpacity={1}
+            objectPosition="center 15%"
+            href="/projects/barca-mobile"
+            title="Barça Mobile"
+            description="Суперапп для футбольных фанатов за полтора месяца до релиза стал телеком-продуктом, а онбординг eSIM снизил нагрузку на поддержку"
+            tags={["iOS", "Android", "Web", "Admin panel"]}
           />
           <MobileProjectCard
             imageSlot={<LuCardsMobileImage />}
@@ -238,15 +237,16 @@ export default function WorksSection() {
             tags={["iOS", "Android"]}
           />
           <MobileProjectCard
-            image="/projects/Telecom.png"
+            image="/projects/SuperApp.png"
             imageWidth={2360}
             imageHeight={1328}
-            imageOpacity={1}
-            objectPosition="center 15%"
-            href="/projects/barca-mobile"
-            title="Barça Mobile"
-            description="Суперапп для фанатов за полтора месяца до релиза стал телеком-продуктом: JTBD-исследование изменило модель монетизации, а онбординг eSIM снизил нагрузку на поддержку"
-            tags={["iOS", "Android", "Web", "Admin panel"]}
+            imageOpacity={0.9}
+            objectPosition="30% center"
+            tintColor="rgba(0,83,161,0.25)"
+            href="/projects/ev-superapp"
+            title="Суперапп для электромобиля (NDA)"
+            description="Диагностировали падение SUS с 84% до 75% и построили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP"
+            tags={["Кроссплатформа", "SWP"]}
           />
         </div>
       </div>

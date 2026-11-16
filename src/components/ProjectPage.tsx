@@ -193,7 +193,6 @@ export default function ProjectPage({ project }: { project: Project }) {
               <h1 className={project.title.length > 14 ? "pp-title pp-title--long" : "pp-title"}>
                 {nb(project.title)}
               </h1>
-              {project.subtitle && <p className="pp-subtitle">{nb(project.subtitle)}</p>}
             </div>
             <dl className="pp-meta">
               {project.meta.map((m) => (

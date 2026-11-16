@@ -879,11 +879,6 @@ a {
   font-size: 64px;
   letter-spacing: -3.2px;
 }
-.pp-subtitle {
-  margin-top: 24px;
-  max-width: 520px;
-  color: rgba(242, 255, 246, 0.7);
-}
 .pp-intro-text + .pp-steps {
   margin-top: 32px;
 }
@@ -1184,9 +1179,6 @@ a {
   .pp-title.pp-title--long {
     font-size: clamp(34px, 9.5vw, 48px);
   }
-  .pp-subtitle {
-    max-width: none;
-  }
   .pp-meta {
     width: 100%;
     max-width: none;
@@ -1208,10 +1200,6 @@ a {
   }
   .pp-metric__label {
     font-size: 16px;
-  }
-  .pp-subtitle {
-    font-size: 18px;
-    line-height: 1.4;
   }
   .pp-meta {
     gap: 20px;

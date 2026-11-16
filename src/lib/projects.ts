@@ -35,8 +35,6 @@ export type ProjectMeta = {
 export type Project = {
   slug: string;
   title: string;
-  // One-line summary shown under the title (optional).
-  subtitle?: string;
   description: string;
   meta: ProjectMeta[];
   metrics: { value: string; label: string }[];
@@ -59,12 +57,12 @@ const luCards: Project = {
       value:
         "Работала над концепцией ежедневного взаимодействия и проектированием интерфейсов совместно\nс арт-директором",
     },
-    { label: "Период работы", value: "март 2024 — сентябрь 2024" },
-    { label: "Команда", value: "арт-директор, проджект-менеджер и команды разработки" },
+    { label: "Период работы", value: "Март 2024 — сентябрь 2024" },
+    { label: "Команда", value: "Арт-директор, проджект-менеджер и команды разработки" },
     { label: "Платформы", value: "iOS, Android" },
     {
       label: "Статус",
-      value: "Запущено!",
+      value: "Запущено",
       links: [
         { label: "App Store", href: "https://apps.apple.com/us/app/lu-cards/id6450506384" },
         {
@@ -80,6 +78,11 @@ const luCards: Project = {
     { value: "2×", label: "Reveal-механики:\nлёд, туман" },
   ],
   blocks: [
+    {
+      kind: "text",
+      title: "Интро",
+      paragraphs: [{ text: "Механика с ежедневной картой увеличила возвращаемость: reveal-анимация превратила открытие карты в ритуал и подняла приложение в топ-100 App Store" }],
+    },
     {
       kind: "text",
       title: "Контекст",
@@ -227,8 +230,6 @@ const luCards: Project = {
 const barcaMobile: Project = {
   slug: "barca-mobile",
   title: "Barça Mobile",
-  subtitle:
-    "Как суперапп для футбольных фанатов за полтора месяца до релиза стал телеком-продуктом — и почему работа команды при этом не пропала",
   description:
     "Кейс Barça Mobile: как суперапп для футбольных фанатов за полтора месяца до релиза стал телеком-продуктом и почему работа команды при этом не пропала.",
   meta: [
@@ -252,7 +253,7 @@ const barcaMobile: Project = {
     {
       label: "Статус",
       value:
-        "Запущено в апреле 2025 года, доступно в App Store и Google Play. С 2026 года продукт развивает другая команда",
+        "Запущено в апреле 2025 года, доступно в App Store и Google Play. С 2026 года развивает другая команда",
     },
   ],
   metrics: [
@@ -263,6 +264,11 @@ const barcaMobile: Project = {
   fluidMetrics: true,
   blocks: [
     { kind: "figure", placeholder: "ИЛЛ-1 · Обложка кейса" },
+    {
+      kind: "text",
+      title: "Интро",
+      paragraphs: [{ text: "Как суперапп для футбольных фанатов за полтора месяца до релиза стал телеком-продуктом — и почему работа команды при этом не пропала" }],
+    },
     {
       kind: "text",
       title: "Контекст",
@@ -351,6 +357,7 @@ const barcaMobile: Project = {
       ],
     },
     { kind: "figure", placeholder: "ИЛЛ-7 · Сценарий покупки, онбординг и установка eSIM" },
+    { kind: "figure", placeholder: "ИЛЛ-7б · Чек-лист «Problems with installation?»" },
     {
       kind: "steps",
       steps: [
@@ -390,14 +397,12 @@ const barcaMobile: Project = {
       ],
     },
   ],
-  nextHref: "/projects/ev-superapp",
+  nextHref: "/projects/lu-cards",
 };
 
 const evSuperapp: Project = {
   slug: "ev-superapp",
   title: "Суперапп для электромобиля",
-  subtitle:
-    "Как мы нашли, почему SUS упал с 84 до 75 баллов, и заложили дизайн-систему, которая не даст приложению и приборной панели снова разойтись",
   description:
     "Кейс под NDA: нашли причины падения SUS и заложили общую дизайн-систему для мобильного приложения и приборной панели электромобиля.",
   meta: [
@@ -424,6 +429,11 @@ const evSuperapp: Project = {
   fluidMetrics: true,
   blocks: [
     { kind: "figure", placeholder: "ИЛЛ-1 · Обложка кейса" },
+    {
+      kind: "text",
+      title: "Интро",
+      paragraphs: [{ text: "Как мы нашли, почему SUS упал с 84 до 75 баллов, и заложили дизайн-систему, которая не даст приложению и приборной панели снова разойтись" }],
+    },
     {
       kind: "text",
       title: "Контекст",
@@ -582,14 +592,12 @@ const evSuperapp: Project = {
       ],
     },
   ],
-  nextHref: "/projects/lu-cards",
+  nextHref: "/projects/barca-mobile",
 };
 
 const cuverse: Project = {
   slug: "cuverse",
   title: "Cuverse",
-  subtitle:
-    "UX-редизайн мобильного приложения, который превращает майнинг биткоина в понятный инвестиционный инструмент для людей без крипто-бэкграунда",
   description:
     "Кейс Cuverse: UX-редизайн мобильного приложения, который превращает майнинг биткоина в понятный инвестиционный инструмент для людей без крипто-бэкграунда.",
   meta: [
@@ -607,12 +615,17 @@ const cuverse: Project = {
   ],
   metrics: [
     { value: "3 месяца", label: "от старта до принятых\nпрототипов всего приложения" },
-    { value: "5", label: "ключевых сценариев\nспроектированы с нуля" },
-    { value: "2", label: "типа аудитории: новичок\nи опытный инвестор" },
+    { value: "5 сценариев", label: "спроектированы\nс нуля" },
+    { value: "2 аудитории", label: "новичок\nи опытный инвестор" },
   ],
   fluidMetrics: true,
   blocks: [
     { kind: "figure", placeholder: "ИЛЛ-1 · Обложка кейса" },
+    {
+      kind: "text",
+      title: "Интро",
+      paragraphs: [{ text: "UX-редизайн мобильного приложения, который превращает майнинг биткоина в понятный инвестиционный инструмент для людей без крипто-бэкграунда" }],
+    },
     {
       kind: "text",
       title: "Контекст",
@@ -749,9 +762,9 @@ const cuverse: Project = {
       ],
     },
   ],
-  nextHref: "/projects/barca-mobile",
+  nextHref: "/projects/ev-superapp",
 };
 
-export const projects: Project[] = [luCards, barcaMobile, evSuperapp, cuverse];
+export const projects: Project[] = [barcaMobile, luCards, cuverse, evSuperapp];
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);

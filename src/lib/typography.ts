@@ -1,8 +1,9 @@
 // Russian typographic rules applied at render time, so the copy in the source
 // stays plain readable text.
 //
-//  1. Short prepositions / conjunctions / particles are glued to the NEXT word
-//     with a non-breaking space — a line never ends on "в", "на", "и", "не"…
+//  1. Short prepositions / conjunctions / particles / pronouns are glued to the
+//     NEXT word with a non-breaking space — a line never ends on "в", "на",
+//     "и", "не", "я", "мы"…
 //  2. A dash never starts a line: the space BEFORE "—" is non-breaking.
 //  3. A number stays with the word after it ("14 дней", "2027 г.", "5 лет").
 //  4. A few fixed pairs never split ("App Store", "Google Play", "Mobile App").
@@ -23,6 +24,8 @@ const SHORT_WORDS = [
   "в", "во", "к", "ко", "с", "со", "у", "о", "об", "обо", "и", "а", "но", "на", "за",
   "по", "из", "от", "до", "не", "ни", "же", "бы", "ли", "для", "при", "про", "без",
   "над", "под", "или", "как", "что",
+  // One- and two-letter pronouns hang just as badly as prepositions.
+  "я", "мы", "ты", "вы", "он", "их", "им", "её", "ей", "то", "уж", "да", "ну",
 ].join("|");
 
 const shortWord = new RegExp(`(?<![${L}])(${SHORT_WORDS}) `, "gi");
