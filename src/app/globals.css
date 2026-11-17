@@ -206,10 +206,14 @@ a {
   position: relative;
 }
 
-@media (max-width: 1279px) {
-  .hero-nav-group {
-    gap: clamp(24px, 6vw, 200px) !important;
-  }
+/* The links and the Contact group are spread across the full width with
+   identical gaps between neighbours (the left group dissolves into the nav's
+   own flex row, so "Home, Works, About, Contact + EN" are siblings). */
+.hero-nav {
+  justify-content: space-between;
+}
+.hero-nav-group {
+  display: contents;
 }
 
 /* Russian labels (+ language switch) need more room than the old English
@@ -1412,8 +1416,11 @@ a {
     font-size: clamp(56px, 9vw, 100px);
     letter-spacing: -0.05em;
   }
+  /* Two-column intro: the title column is what is left beside the 580px
+     meta column, and the longest Russian word ("электромобиля") has to fit
+     in it, so the size follows the viewport (about 7.1 x the font size). */
   .pp-title.pp-title--long {
-    font-size: clamp(40px, 6vw, 64px);
+    font-size: clamp(32px, 4.4vw, 64px);
   }
   .pp-intro {
     padding-top: 48px;

@@ -53,7 +53,7 @@ export default function SiteNav({
         color: "#f2fff6",
       }}
     >
-      <div className="hero-nav-group" style={{ display: "flex", gap: "327px" }}>
+      <div className="hero-nav-group">
         {leftLinks.map((l) => (
           <Link key={l.href} href={l.href}>
             {l.label}
