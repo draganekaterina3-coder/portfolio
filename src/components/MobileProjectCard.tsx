@@ -39,6 +39,7 @@ type MobileProjectCardProps = {
   title: string;
   description: string;
   tags: string[];
+  metric?: string;
   image?: string;
   imageWidth?: number;
   imageHeight?: number;
@@ -54,7 +55,7 @@ type MobileProjectCardProps = {
   external?: boolean;
   /** Play Store link for visitors who are not on Apple devices (see StoreLinks). */
   androidHref?: string;
-  buttonText?: string;
+  buttonText: string;
   buttonIcon?: boolean;
 };
 
@@ -62,6 +63,7 @@ export default function MobileProjectCard({
   title,
   description,
   tags,
+  metric,
   image,
   imageWidth = 1160,
   imageHeight = 1328,
@@ -78,7 +80,7 @@ export default function MobileProjectCard({
   href = "#",
   external = false,
   androidHref,
-  buttonText = "Посмотреть проект",
+  buttonText,
   buttonIcon = false,
 }: MobileProjectCardProps) {
   return (
@@ -128,6 +130,7 @@ export default function MobileProjectCard({
 
         <div className="mobile-project-card__body">
           <h3 className="mobile-project-card__title">{nb(title)}</h3>
+          {metric && <span className="mobile-project-card__metric">{nb(metric)}</span>}
           <p className="mobile-project-card__desc">{nb(description)}</p>
 
           {tags.length > 0 && (

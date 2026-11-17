@@ -5,6 +5,7 @@ import LogoStrip from "./LogoStrip";
 import MobileProjectCard from "./MobileProjectCard";
 import ScrollReveal from "./ScrollReveal";
 import { nb } from "@/lib/typography";
+import { dict, links, projectHref, type Lang } from "@/lib/i18n";
 
 /*
   LU Cards mobile composition — phone mockup + live GIF, same asset stack
@@ -88,23 +89,29 @@ const LuCardsMobileImage = () => (
   </>
 );
 
+
 /*
   Works section internal layout (from Figma metadata):
 
-  Frame 11:100  h=810   heading "Избранные проекты" at y=100 + Barça Mobile card at y=146
+  Frame 11:100  h=810   heading "Избранные проекты" at y=100 + first card at y=146
   Frame 11:103  h=684   LuCards (580px) + Cuverse (580px), cards at y=20, gap=20px
   Frame 11:126  h=684   EV superapp (1180px), card at y=20
   Frame 11:129  h=96    "Другие проекты" heading at y=70
   Frame 11:131  h=684   Frenk (580px) + Flawery (580px), cards at y=20, gap=20px
   Frame 11:134  h=224   Logo strip (handled by LogoStrip component)
 
+  The section is split in two (FeaturedWorks / OtherWorks); on the page they
+  follow each other, and About comes after the logo strip.
+
+  Cards show their title and one number at rest (see .project-card__idle);
+  the hover text is a bonus, not the only place the content lives.
+
   Responsive (<1280px only — desktop above is untouched):
   - >=769px: same rows, cards become fluid-width via .project-card--full/--half
     (see globals.css), keeping the hover-reveal card as-is.
   - <=768px: hover has no place on touch — the desktop rows (.desktop-only-row)
     are hidden and replaced by purpose-built always-visible MobileProjectCard
-    grids, grouped the same way as desktop ("Избранные проекты": Barça Mobile,
-    LU Cards, Cuverse, EV superapp; "Другие проекты": Frenk, Flawery).
+    grids, grouped the same way as desktop.
 */
 
 const headingStyle: React.CSSProperties = {
@@ -115,14 +122,17 @@ const headingStyle: React.CSSProperties = {
   textAlign: "right",
 };
 
-export default function WorksSection() {
+export function FeaturedWorks({ lang }: { lang: Lang }) {
+  const t = dict[lang];
+  const c = t.cards;
+  const view = t.works.view;
+
   return (
     <section id="works" style={{ backgroundColor: "#010101" }}>
-
-      {/* ── Row 1: heading + Barça Mobile (h=810) ── */}
+      {/* ── Row 1: heading + first card (h=810) ── */}
       <div className="works-top-pad" style={{ paddingTop: "100px" }}>
         <div className="container-1280 responsive-px" style={{ padding: "0 50px" }}>
-          <h2 className="works-heading" style={headingStyle}>{nb("Избранные проекты")}</h2>
+          <h2 className="works-heading" style={headingStyle}>{nb(t.works.featured)}</h2>
         </div>
         <ScrollReveal>
           <div
@@ -132,15 +142,15 @@ export default function WorksSection() {
             <ProjectCard
               fullWidth
               priority
-              layers={[
-                { kind: "image", src: "/projects/Telecom.png", opacity: 0.75 },
-              ]}
+              layers={[{ kind: "image", src: "/projects/Telecom.png", opacity: 0.75 }]}
               imageWidth={2360}
               imageHeight={1328}
-              title="Barça Mobile"
-              href="/projects/barca-mobile"
-              description="Суперапп для футбольных фанатов за полтора месяца до релиза стал телеком-продуктом, а онбординг eSIM снизил нагрузку на поддержку"
-              tags={["iOS", "Android", "Web", "Admin panel"]}
+              title={c.barca.title}
+              href={projectHref(lang, "barca-mobile")}
+              description={c.barca.description}
+              metric={c.barca.metric}
+              tags={c.barca.tags}
+              buttonText={view}
             />
           </div>
         </ScrollReveal>
@@ -156,10 +166,12 @@ export default function WorksSection() {
             }}
           >
             <LuCardsCard
-              title="LU Cards"
-              href="/projects/lu-cards"
-              description="Механика с ежедневной картой увеличила возвращаемость: reveal-анимация превратила открытие карты в ритуал и подняла приложение в топ-100 App Store"
-              tags={["iOS", "Android"]}
+              title={c.lucards.title}
+              href={projectHref(lang, "lu-cards")}
+              description={c.lucards.description}
+              metric={c.lucards.metric}
+              tags={c.lucards.tags}
+              buttonText={view}
             />
             <ProjectCard
               layers={[
@@ -172,10 +184,12 @@ export default function WorksSection() {
               ]}
               imageWidth={1160}
               imageHeight={1328}
-              title="Cuverse"
-              href="/projects/cuverse"
-              description="Спроектировала UX для крипто-продукта с высоким порогом входа — от онбординга до мониторинга хешрейта"
-              tags={["iOS", "Android"]}
+              title={c.cuverse.title}
+              href={projectHref(lang, "cuverse")}
+              description={c.cuverse.description}
+              metric={c.cuverse.metric}
+              tags={c.cuverse.tags}
+              buttonText={view}
             />
           </div>
         </ScrollReveal>
@@ -194,10 +208,12 @@ export default function WorksSection() {
               ]}
               imageWidth={2360}
               imageHeight={1328}
-              title="Суперапп для электромобиля (NDA)"
-              href="/projects/ev-superapp"
-              description="Диагностировали падение SUS с 84% до 75% и построили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP"
-              tags={["Кроссплатформа", "SWP"]}
+              title={c.ev.title}
+              href={projectHref(lang, "ev-superapp")}
+              description={c.ev.description}
+              metric={c.ev.metric}
+              tags={c.ev.tags}
+              buttonText={view}
             />
           </div>
         </ScrollReveal>
@@ -213,17 +229,21 @@ export default function WorksSection() {
             imageHeight={1328}
             imageOpacity={1}
             objectPosition="center 15%"
-            href="/projects/barca-mobile"
-            title="Barça Mobile"
-            description="Суперапп для футбольных фанатов за полтора месяца до релиза стал телеком-продуктом, а онбординг eSIM снизил нагрузку на поддержку"
-            tags={["iOS", "Android", "Web", "Admin panel"]}
+            href={projectHref(lang, "barca-mobile")}
+            title={c.barca.title}
+            description={c.barca.description}
+            metric={c.barca.metric}
+            tags={c.barca.tags}
+            buttonText={view}
           />
           <MobileProjectCard
             imageSlot={<LuCardsMobileImage />}
-            href="/projects/lu-cards"
-            title="LU Cards"
-            description="Механика с ежедневной картой увеличила возвращаемость: reveal-анимация превратила открытие карты в ритуал и подняла приложение в топ-100 App Store"
-            tags={["iOS", "Android"]}
+            href={projectHref(lang, "lu-cards")}
+            title={c.lucards.title}
+            description={c.lucards.description}
+            metric={c.lucards.metric}
+            tags={c.lucards.tags}
+            buttonText={view}
           />
           <MobileProjectCard
             image="/projects/Cuverse.png"
@@ -231,10 +251,12 @@ export default function WorksSection() {
             imageHeight={1328}
             objectPosition="center bottom"
             tintColor="rgba(4,29,27,0.2)"
-            href="/projects/cuverse"
-            title="Cuverse"
-            description="Спроектировала UX для крипто-продукта с высоким порогом входа — от онбординга до мониторинга хешрейта"
-            tags={["iOS", "Android"]}
+            href={projectHref(lang, "cuverse")}
+            title={c.cuverse.title}
+            description={c.cuverse.description}
+            metric={c.cuverse.metric}
+            tags={c.cuverse.tags}
+            buttonText={view}
           />
           <MobileProjectCard
             image="/projects/SuperApp.png"
@@ -243,17 +265,28 @@ export default function WorksSection() {
             imageOpacity={0.9}
             objectPosition="30% center"
             tintColor="rgba(0,83,161,0.25)"
-            href="/projects/ev-superapp"
-            title="Суперапп для электромобиля (NDA)"
-            description="Диагностировали падение SUS с 84% до 75% и построили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP"
-            tags={["Кроссплатформа", "SWP"]}
+            href={projectHref(lang, "ev-superapp")}
+            title={c.ev.title}
+            description={c.ev.description}
+            metric={c.ev.metric}
+            tags={c.ev.tags}
+            buttonText={view}
           />
         </div>
       </div>
+    </section>
+  );
+}
 
+export function OtherWorks({ lang }: { lang: Lang }) {
+  const t = dict[lang];
+  const c = t.cards;
+
+  return (
+    <section id="other-works" style={{ backgroundColor: "#010101" }}>
       {/* ── "Другие проекты" heading (h=96) ── */}
       <div className="container-1280 responsive-px works-other-heading" style={{ padding: "70px 50px 0" }}>
-        <h2 className="works-heading" style={headingStyle}>{nb("Другие проекты")}</h2>
+        <h2 className="works-heading" style={headingStyle}>{nb(t.works.other)}</h2>
       </div>
 
       {/* ── Row 4: Frenk + Flawery (h=684) ── */}
@@ -270,13 +303,13 @@ export default function WorksSection() {
             layers={[{ kind: "image", src: "/projects/Frenk.png" }]}
             imageWidth={1160}
             imageHeight={1328}
-            title="Frank by БАСТА"
-            href="https://frankmeat.ru/"
+            title={c.frank.title}
+            href={links.frank}
             external
-            description="4 режима заказа: доставка, самовывоз, групповой, блюдо за баллы. Решение CRM-ограничений через контекстный сбор данных пользователя"
-            tags={["Web", "Кроссплатформа"]}
+            description={c.frank.description}
+            tags={c.frank.tags}
             tagBorderColor="rgba(232,247,210,0.4)"
-            buttonText="Перейти на сайт"
+            buttonText={t.works.site}
             buttonIcon
           />
           <ProjectCard
@@ -287,14 +320,14 @@ export default function WorksSection() {
             ]}
             imageWidth={1160}
             imageHeight={1328}
-            title="Flawery"
-            href="https://apps.apple.com/ru/app/%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0-%D1%86%D0%B2%D0%B5%D1%82%D0%BE%D0%B2-flawery-%D1%86%D0%B2%D0%B5%D1%82%D1%8B/id1293147226"
-            androidHref="https://play.google.com/store/apps/details?id=ru.flawery.client.app&pcampaignid=web_share"
+            title={c.flawery.title}
+            href={links.flaweryApple}
+            androidHref={links.flaweryAndroid}
             external
-            description="Работа велась параллельно со студией-конкурентом — по результатам прототипов и концепции наша команда выиграла право дальнейшей разработки приложения"
-            tags={["iOS", "Android"]}
+            description={c.flawery.description}
+            tags={c.flawery.tags}
             tagBorderColor="rgba(232,247,210,0.4)"
-            buttonText="Перейти в Store"
+            buttonText={t.works.store}
             buttonIcon
           />
         </div>
@@ -310,12 +343,12 @@ export default function WorksSection() {
           imageWidth={1160}
           imageHeight={1328}
           objectPosition="center 78%"
-          title="Frank by БАСТА"
-          href="https://frankmeat.ru/"
+          title={c.frank.title}
+          href={links.frank}
           external
-          description="4 режима заказа: доставка, самовывоз, групповой, блюдо за баллы. Решение CRM-ограничений через контекстный сбор данных пользователя"
-          tags={["Web", "Кроссплатформа"]}
-          buttonText="Перейти на сайт"
+          description={c.frank.description}
+          tags={c.frank.tags}
+          buttonText={t.works.site}
           buttonIcon
         />
         <MobileProjectCard
@@ -325,20 +358,19 @@ export default function WorksSection() {
           objectPosition="center 30%"
           tintColor="rgba(196,136,147,0.4)"
           tintBlendMode="soft-light"
-          title="Flawery"
-          href="https://apps.apple.com/ru/app/%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0-%D1%86%D0%B2%D0%B5%D1%82%D0%BE%D0%B2-flawery-%D1%86%D0%B2%D0%B5%D1%82%D1%8B/id1293147226"
-          androidHref="https://play.google.com/store/apps/details?id=ru.flawery.client.app&pcampaignid=web_share"
+          title={c.flawery.title}
+          href={links.flaweryApple}
+          androidHref={links.flaweryAndroid}
           external
-          description="Работа велась параллельно со студией-конкурентом — по результатам прототипов и концепции наша команда выиграла право дальнейшей разработки приложения"
-          tags={["iOS", "Android"]}
-          buttonText="Перейти в Store"
+          description={c.flawery.description}
+          tags={c.flawery.tags}
+          buttonText={t.works.store}
           buttonIcon
         />
       </div>
 
       {/* ── Logo strip (h=224) ── */}
       <LogoStrip />
-
     </section>
   );
 }

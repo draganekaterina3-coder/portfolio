@@ -46,6 +46,12 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // The site has two root layouts (Russian and English, each with its own
+  // <html lang>), so a single layout can't wrap the 404 page. This flag lets
+  // app/global-not-found.tsx render it as a full document instead.
+  experimental: {
+    globalNotFound: true,
+  },
   // Don't advertise the framework in responses — trivial information
   // disclosure, no functional purpose.
   poweredByHeader: false,

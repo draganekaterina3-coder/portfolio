@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { FigureImage, Project, ProjectBlock } from "@/lib/projects";
-import ProjectNav from "./ProjectNav";
+import SiteNav from "./SiteNav";
 import ContactSection from "./ContactSection";
 import ScrollReveal from "./ScrollReveal";
 import { nb } from "@/lib/typography";
+import { dict, otherLang, projectHref, type Lang } from "@/lib/i18n";
 
 const ArrowUpRight = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
@@ -179,11 +180,15 @@ function Block({
 
 const isMedia = (b?: ProjectBlock) => b?.kind === "figure" || b?.kind === "figure-pair";
 
-export default function ProjectPage({ project }: { project: Project }) {
+export default function ProjectPage({ project, lang }: { project: Project; lang: Lang }) {
+  const t = dict[lang].project;
+  const nextHref = lang === "en" ? `/en${project.nextHref}` : project.nextHref;
   return (
     <>
       <header>
-        <ProjectNav />
+        <div className="container-1280 responsive-px" style={{ padding: "20px 50px" }}>
+          <SiteNav lang={lang} switchHref={projectHref(otherLang(lang), project.slug)} />
+        </div>
       </header>
       <main style={{ backgroundColor: "#010101" }}>
         <div className="container-1280 responsive-px pp-intro">
@@ -228,7 +233,32 @@ export default function ProjectPage({ project }: { project: Project }) {
           </ul>
         </div>
 
-        <div className="container-1280 responsive-px pp-body">
+        {project.summary && (
+          <div className="container-1280 responsive-px pp-summary-wrap">
+            <section className="pp-summary" aria-labelledby="pp-summary-title">
+              <div className="pp-summary__head">
+                <h2 id="pp-summary-title">{nb(t.summary)}</h2>
+                <a href="#case">{t.readFull} ↓</a>
+              </div>
+              <div className="pp-summary__cols">
+                <div>
+                  <h3>{t.problem}</h3>
+                  <p>{nb(project.summary.problem)}</p>
+                </div>
+                <div>
+                  <h3>{t.did}</h3>
+                  <p>{nb(project.summary.did)}</p>
+                </div>
+                <div>
+                  <h3>{t.result}</h3>
+                  <p>{nb(project.summary.result)}</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        <div id="case" className="container-1280 responsive-px pp-body">
           {project.blocks.map((block, i) => (
             <ScrollReveal key={i}>
               <Block
@@ -241,13 +271,13 @@ export default function ProjectPage({ project }: { project: Project }) {
         </div>
 
         <div className="container-1280 responsive-px pp-next">
-          <Link href={project.nextHref}>
-            {nb("Следующий проект")}
+          <Link href={nextHref}>
+            {nb(t.next)}
             <ArrowRight />
           </Link>
         </div>
       </main>
-      <ContactSection />
+      <ContactSection lang={lang} />
     </>
   );
 }

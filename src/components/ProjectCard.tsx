@@ -10,6 +10,8 @@ type ProjectCardProps = {
   title: string;
   description: string;
   tags: string[];
+  /** The one number that sells the project, shown on the card at rest. */
+  metric?: string;
   href?: string;
   /** Opens in a new tab (links that leave the site). */
   external?: boolean;
@@ -19,7 +21,7 @@ type ProjectCardProps = {
   layers: Layer[];
   imageWidth?: number;
   imageHeight?: number;
-  buttonText?: string;
+  buttonText: string;
   buttonIcon?: boolean;
   tagBorderColor?: string;
   /** Only the true above-the-fold LCP candidate should set this. */
@@ -49,6 +51,7 @@ export default function ProjectCard({
   title,
   description,
   tags,
+  metric,
   href = "#",
   external = false,
   androidHref,
@@ -56,7 +59,7 @@ export default function ProjectCard({
   layers,
   imageWidth = 2360,
   imageHeight = 1328,
-  buttonText = "Посмотреть проект",
+  buttonText,
   buttonIcon = false,
   tagBorderColor = "rgba(255,255,255,0.4)",
   priority = false,
@@ -126,6 +129,13 @@ export default function ProjectCard({
             />
           )
         )}
+
+        {/* Resting caption: title + the one number, always visible; fades out
+            when the hover overlay takes over. */}
+        <div className="project-card__idle">
+          <h3 className="project-card__idle-title">{nb(title)}</h3>
+          {metric && <span className="project-card__metric">{nb(metric)}</span>}
+        </div>
 
         {/* Hover overlay: dark + blur, fades in first */}
         <div

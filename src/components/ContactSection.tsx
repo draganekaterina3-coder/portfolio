@@ -8,6 +8,7 @@
 
 import ScrollReveal from "./ScrollReveal";
 import { nb } from "@/lib/typography";
+import { dict, links, type Lang } from "@/lib/i18n";
 
 const ArrowIcon = () => (
   <svg
@@ -28,16 +29,15 @@ const ArrowIcon = () => (
   </svg>
 );
 
-const links = [
-  {
-    label: "Headhunter",
-    href: "https://spb.hh.ru/resume/3be0c8a0ff07562ef40039ed1f38766d784658",
-  },
-  { label: "Behance", href: "https://www.behance.net/221a97bb" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/ekaterina-dragan-218448272/" },
-];
+export default function ContactSection({ lang }: { lang: Lang }) {
+  const t = dict[lang].footer;
+  const hh = { label: "Headhunter", href: links.hh };
+  const behance = { label: "Behance", href: links.behance };
+  const linkedin = { label: "LinkedIn", href: links.linkedin };
+  // The resume lives where the reader's market is: hh.ru first for Russian
+  // visitors, LinkedIn first for English ones.
+  const list = lang === "ru" ? [hh, behance, linkedin] : [linkedin, behance, hh];
 
-export default function ContactSection() {
   return (
     <section
       id="contact"
@@ -51,23 +51,21 @@ export default function ContactSection() {
       }}
     >
       <ScrollReveal>
-        <h2 className="footer-headline">
-          {nb("Открыта к предложениям: рассматриваю позицию продуктового дизайнера")}
-        </h2>
+        <h2 className="footer-headline">{nb(t.headline)}</h2>
 
         <div className="footer-actions">
           <a
-            href="https://t.me/ekt_dr"
+            href={links.telegram}
             target="_blank"
             rel="noopener noreferrer"
             className="contact-button"
           >
-            <span>Связаться со мной</span>
+            <span>{t.cta}</span>
             <ArrowIcon />
           </a>
 
           <div className="footer-links">
-            {links.map((l) => (
+            {list.map((l) => (
               <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
                 <span>{l.label}</span>
                 <ArrowIcon />
@@ -79,7 +77,7 @@ export default function ContactSection() {
         <div className="footer-copy">
           <span>
             © {new Date().getFullYear()} Dragan Ekaterina
-            <span className="footer-role"> · Product Designer</span>
+            <span className="footer-role"> · {t.role}</span>
           </span>
         </div>
       </ScrollReveal>

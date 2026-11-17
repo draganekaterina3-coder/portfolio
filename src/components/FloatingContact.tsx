@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { dict, links, sectionHref, homeHref, type Lang } from "@/lib/i18n";
 
-const CONTACT_HREF = "https://t.me/ekt_dr";
+const CONTACT_HREF = links.telegram;
 
 const ArrowIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -29,7 +31,13 @@ const ArrowIcon = () => (
   button. The first screen of every page is untouched: nothing shows until
   the visitor has scrolled.
 */
-export default function FloatingContact() {
+export default function FloatingContact({ lang }: { lang: Lang }) {
+  const t = dict[lang];
+  // The footer is a different DOM node on every page, so the watcher below is
+  // set up again whenever the route changes. (It used to attach once, to the
+  // first page's footer, and after a client-side navigation it watched a node
+  // that no longer existed, so the button stayed on top of the new footer.)
+  const pathname = usePathname();
   const [pillVisible, setPillVisible] = useState(false);
   const [barVisible, setBarVisible] = useState(false);
 
@@ -53,12 +61,17 @@ export default function FloatingContact() {
     };
 
     const contact = document.getElementById("contact");
+    // The bottom margin hides the button a little before the footer slides
+    // into view, so the two are never on screen together.
     const observer = contact
-      ? new IntersectionObserver(([entry]) => {
-          contactInView = entry.isIntersecting;
-          if (contactInView) setBarVisible(false);
-          update();
-        })
+      ? new IntersectionObserver(
+          ([entry]) => {
+            contactInView = entry.isIntersecting;
+            if (contactInView) setBarVisible(false);
+            update();
+          },
+          { rootMargin: "0px 0px 120px 0px" },
+        )
       : null;
     if (contact && observer) observer.observe(contact);
 
@@ -69,7 +82,7 @@ export default function FloatingContact() {
       observer?.disconnect();
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <>
@@ -81,7 +94,7 @@ export default function FloatingContact() {
         tabIndex={pillVisible ? 0 : -1}
         aria-hidden={!pillVisible}
       >
-        <span>Связаться</span>
+        <span>{t.float.pill}</span>
         <ArrowIcon />
       </a>
 
@@ -91,9 +104,9 @@ export default function FloatingContact() {
       >
         <div className="container-1280 responsive-px float-bar__inner">
           <nav className="float-bar__nav">
-            <Link href="/" tabIndex={barVisible ? 0 : -1}>Home</Link>
-            <Link href="/#works" tabIndex={barVisible ? 0 : -1}>Works</Link>
-            <Link href="/#about" tabIndex={barVisible ? 0 : -1}>About</Link>
+            <Link href={homeHref(lang)} tabIndex={barVisible ? 0 : -1}>{t.nav.home}</Link>
+            <Link href={sectionHref(lang, "works")} tabIndex={barVisible ? 0 : -1}>{t.nav.works}</Link>
+            <Link href={sectionHref(lang, "about")} tabIndex={barVisible ? 0 : -1}>{t.nav.about}</Link>
           </nav>
           <a
             href={CONTACT_HREF}
@@ -102,7 +115,7 @@ export default function FloatingContact() {
             className="float-bar__cta"
             tabIndex={barVisible ? 0 : -1}
           >
-            <span>Связаться со мной</span>
+            <span>{t.float.cta}</span>
             <ArrowIcon />
           </a>
         </div>

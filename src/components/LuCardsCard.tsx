@@ -26,6 +26,8 @@ type LuCardsCardProps = {
   title: string;
   description: string;
   tags: string[];
+  metric?: string;
+  buttonText: string;
   href?: string;
   /** Only the true above-the-fold LCP candidate should set this. */
   priority?: boolean;
@@ -39,6 +41,8 @@ export default function LuCardsCard({
   title,
   description,
   tags,
+  metric,
+  buttonText,
   href = "#",
   priority = false,
 }: LuCardsCardProps) {
@@ -139,13 +143,19 @@ export default function LuCardsCard({
           />
         </div>
 
+        {/* Resting caption: title + the one number, always visible */}
+        <div className="project-card__idle" style={{ zIndex: 3 }}>
+          <h3 className="project-card__idle-title">{nb(title)}</h3>
+          {metric && <span className="project-card__metric">{nb(metric)}</span>}
+        </div>
+
         {/* Layer 4 — hover overlay: dark + blur, fades in first */}
         <div
           className="project-card__overlay"
           style={{
             position: "absolute",
             inset: 0,
-            zIndex: 3,
+            zIndex: 4,
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
           }}
@@ -159,7 +169,7 @@ export default function LuCardsCard({
             left: "28px",
             top: "48px",
             width: "520px",
-            zIndex: 4,
+            zIndex: 5,
             display: "flex",
             flexDirection: "column",
             gap: "32px",
@@ -219,7 +229,7 @@ export default function LuCardsCard({
             position: "absolute",
             left: "28px",
             top: "554px",
-            zIndex: 4,
+            zIndex: 5,
             width: "fit-content",
             whiteSpace: "nowrap",
             backgroundColor: "#f2fff6",
@@ -235,7 +245,7 @@ export default function LuCardsCard({
             color: "#010101",
           }}
         >
-          <span>Посмотреть проект</span>
+          <span>{nb(buttonText)}</span>
         </div>
       </div>
     </Link>
