@@ -105,7 +105,7 @@ export const dict: Record<Lang, Dict> = {
       lead: "Продуктовый дизайнер. Проектирую мобильные приложения и дизайн-системы: от исследования до передачи в разработку",
       status: "Открыта к предложениям",
       primary: "Написать в Telegram",
-      secondary: { label: "Резюме PDF", href: links.resume.ru },
+      secondary: { label: "Резюме", href: links.resume.ru },
     },
     works: {
       featured: "Избранные проекты",
@@ -209,7 +209,7 @@ export const dict: Record<Lang, Dict> = {
       lead: "Product designer. I design mobile apps and design systems, from research to developer handoff",
       status: "Open to new roles",
       primary: "Message me on Telegram",
-      secondary: { label: "Resume PDF", href: links.resume.en },
+      secondary: { label: "Resume", href: links.resume.en },
     },
     works: {
       featured: "Selected projects",
