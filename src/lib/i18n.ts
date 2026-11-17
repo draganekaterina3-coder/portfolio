@@ -14,6 +14,7 @@ export const projectHref = (lang: Lang, slug: string) =>
 
 export const links = {
   telegram: "https://t.me/ekt_dr",
+  resume: { ru: "/ekaterina-dragan-resume-ru.pdf", en: "/ekaterina-dragan-resume-en.pdf" },
   hh: "https://spb.hh.ru/resume/3be0c8a0ff07562ef40039ed1f38766d784658",
   behance: "https://www.behance.net/221a97bb",
   linkedin: "https://www.linkedin.com/in/ekaterina-dragan-218448272/",
@@ -104,7 +105,7 @@ export const dict: Record<Lang, Dict> = {
       lead: "Продуктовый дизайнер. Проектирую мобильные приложения и дизайн-системы: от исследования до передачи в разработку",
       status: "Открыта к предложениям",
       primary: "Написать в Telegram",
-      secondary: { label: "Резюме на hh.ru", href: links.hh },
+      secondary: { label: "Резюме PDF", href: links.resume.ru },
     },
     works: {
       featured: "Избранные проекты",
@@ -208,7 +209,7 @@ export const dict: Record<Lang, Dict> = {
       lead: "Product designer. I design mobile apps and design systems, from research to developer handoff",
       status: "Open to new roles",
       primary: "Message me on Telegram",
-      secondary: { label: "LinkedIn", href: links.linkedin },
+      secondary: { label: "Resume PDF", href: links.resume.en },
     },
     works: {
       featured: "Selected projects",
