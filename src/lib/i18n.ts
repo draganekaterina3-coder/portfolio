@@ -44,7 +44,7 @@ export type Dict = {
   locale: string;
   switchLabel: string; // label of the link to the OTHER language
   switchTitle: string;
-  nav: { home: string; works: string; about: string; resume: string; contact: string };
+  nav: { home: string; works: string; about: string; contact: string };
   menu: { open: string; close: string };
   hero: {
     lead: string;
@@ -100,7 +100,7 @@ export const dict: Record<Lang, Dict> = {
     locale: "ru_RU",
     switchLabel: "EN",
     switchTitle: "English version",
-    nav: { home: "Главная", works: "Работы", about: "Обо мне", resume: "Резюме", contact: "Связаться" },
+    nav: { home: "Главная", works: "Работы", about: "Обо мне", contact: "Связаться" },
     menu: { open: "Открыть меню", close: "Закрыть меню" },
     hero: {
       lead: "Продуктовый дизайнер. Проектирую мобильные приложения и дизайн-системы: от исследования до передачи в разработку",
@@ -211,7 +211,7 @@ export const dict: Record<Lang, Dict> = {
     locale: "en_US",
     switchLabel: "RU",
     switchTitle: "Русская версия",
-    nav: { home: "Home", works: "Works", about: "About", resume: "LinkedIn", contact: "Contact" },
+    nav: { home: "Home", works: "Works", about: "About", contact: "Contact" },
     menu: { open: "Open menu", close: "Close menu" },
     hero: {
       lead: "Product designer. I design mobile apps and design systems, from research to developer handoff",
