@@ -48,7 +48,7 @@ function FigureFrame({ image, sizes }: { image: FigureImage; sizes: string }) {
       />
       {screen && (
         <div className="pp-phone">
-          <AutoVideo src={screen.src} poster={screen.poster} label={screen.alt} />
+          <AutoVideo src={screen.src} poster={screen.poster} label={screen.alt} manual />
         </div>
       )}
     </div>
@@ -201,7 +201,7 @@ export default function ProjectPage({ project, lang }: { project: Project; lang:
     <>
       <header>
         <div className="container-1280 responsive-px" style={{ padding: "20px 50px" }}>
-          <SiteNav lang={lang} switchHref={projectHref(otherLang(lang), project.slug)} />
+          <SiteNav lang={lang} page="case" switchHref={projectHref(otherLang(lang), project.slug)} />
         </div>
       </header>
       <main style={{ backgroundColor: "#010101" }}>

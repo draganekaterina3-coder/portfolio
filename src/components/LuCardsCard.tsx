@@ -109,24 +109,25 @@ export default function LuCardsCard({
           priority={priority}
         />
 
-        {/* Layer 3 — GIF, masked to the screen window, drawn on top of the
-            phone so it reads as playing inside the display regardless of
-            whether the phone PNG itself has a transparent cutout.
-            Percentages (not fixed px) so the window tracks the phone
-            mockup as the card scales fluidly below 1280px — fixed px
-            offsets made the gif drift/vanish as the card shrank. */}
+        {/* Layer 3 — the screen recording, drawn on top of the phone so it reads
+            as playing inside the display (the phone PNG's screen is solid
+            black, not a cutout).
+            The box is the phone's screen measured on LU Cards_phone.png
+            (1160x1328): x 188-973, top 131, corner radius 130px, and the
+            video's own 616x1340 proportions. Percentages (not px) so it
+            tracks the mockup as the card scales below 1280px. */}
         <div
           style={{
             position: "absolute",
-            left: "17.59%",
-            top: "11.14%",
-            width: "65%",
-            height: "123.49%",
+            left: "16.21%",
+            top: "9.86%",
+            width: "67.67%",
+            height: "128.59%",
             /* horizontal% / vertical% — percentage border-radius resolves
                against width and height separately, so a single value would
                stretch into an ellipse on this non-square window. This pair
-               reproduces the original 36px circular corner at any size. */
-            borderRadius: "9.55% / 4.39%",
+               is the phone screen's 130px circular corner at any size. */
+            borderRadius: "16.56% / 7.61%",
             overflow: "hidden",
             zIndex: 2,
           }}

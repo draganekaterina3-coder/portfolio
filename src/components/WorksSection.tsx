@@ -66,11 +66,11 @@ const LuCardsMobileImage = () => (
     <div
       style={{
         position: "absolute",
-        left: "17.6%",
-        top: "11.1%",
-        width: "65%",
-        height: "123.5%",
-        borderRadius: "9.55% / 4.39%",
+        left: "16.21%",
+        top: "9.86%",
+        width: "67.67%",
+        height: "128.59%",
+        borderRadius: "16.56% / 7.61%",
         overflow: "hidden",
         zIndex: 2,
       }}
