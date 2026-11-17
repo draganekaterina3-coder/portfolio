@@ -628,10 +628,12 @@ a {
 
 /* ─── Hero: intro (what I do · status · contacts · proof) ──────────── */
 
+/* One column on every screen: statement, availability, buttons, then proof.
+   Side by side they competed for attention on desktop. */
 .hero-intro-grid {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 64px;
+  grid-template-columns: 1fr;
+  gap: 44px;
   align-items: start;
 }
 .hero-lead {
@@ -699,22 +701,28 @@ a {
   list-style: none;
   margin: 0;
   padding: 0;
+  max-width: 880px;
 }
+/* Same grid in every row: values share one column and one vertical center,
+   so "1M+", "+35%" and "−20%" sit on a common line and the labels start at
+   the same x. */
 .hero-proof li {
-  display: flex;
-  align-items: baseline;
-  gap: 20px;
-  padding: 16px 0;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  column-gap: 24px;
+  align-items: center;
+  min-height: 92px;
+  padding: 14px 0;
   border-top: 1px solid rgba(242, 255, 246, 0.16);
 }
 .hero-proof b {
-  flex: none;
-  width: 150px;
   font-family: var(--font-general-sans);
   font-weight: 500;
   font-size: 56px;
   line-height: 1;
   letter-spacing: -0.04em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 .hero-proof span {
   font-size: 18px;
@@ -728,24 +736,17 @@ a {
     padding-bottom: 32px !important;
   }
   .hero-intro-grid {
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
-  }
-  .hero-lead {
-    font-size: 26px;
-  }
-  .hero-proof b {
-    width: 120px;
-    font-size: 44px;
-  }
-}
-@media (max-width: 899px) {
-  .hero-intro-grid {
-    grid-template-columns: 1fr;
     gap: 36px;
   }
   .hero-lead {
     font-size: 28px;
+  }
+  .hero-proof li {
+    grid-template-columns: 180px minmax(0, 1fr);
+    min-height: 80px;
+  }
+  .hero-proof b {
+    font-size: 44px;
   }
 }
 @media (max-width: 768px) {
@@ -766,11 +767,12 @@ a {
     font-size: 18px;
   }
   .hero-proof li {
-    gap: 16px;
-    padding: 14px 0;
+    grid-template-columns: 112px minmax(0, 1fr);
+    column-gap: 16px;
+    min-height: 68px;
+    padding: 12px 0;
   }
   .hero-proof b {
-    width: 96px;
     font-size: 32px;
   }
   .hero-proof span {
@@ -824,12 +826,17 @@ a {
   letter-spacing: -1.8px;
   color: #f2fff6;
 }
+/* Neutral glass pill, mint text: the number stays the accent, the pill itself
+   stays quiet so it doesn't compete with the artwork or the real buttons. */
 .project-card__metric {
   display: inline-block;
   padding: 6px 16px;
   border-radius: 100px;
-  background: #a0f6bb;
-  color: #05210f;
+  background: rgba(1, 1, 1, 0.5);
+  border: 1px solid rgba(242, 255, 246, 0.28);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #a0f6bb;
   font-size: 18px;
   font-weight: 600;
   line-height: 1.4;
@@ -889,8 +896,9 @@ a {
   align-self: flex-start;
   padding: 4px 12px;
   border-radius: 100px;
-  background: #a0f6bb;
-  color: #05210f;
+  background: rgba(242, 255, 246, 0.07);
+  border: 1px solid rgba(242, 255, 246, 0.24);
+  color: #a0f6bb;
   font-size: 16px;
   font-weight: 600;
   line-height: 1.4;
@@ -1770,5 +1778,101 @@ a {
   .float-pill svg {
     width: 20px;
     height: 20px;
+  }
+}
+
+/* ─── 404 page (components/NotFoundScreen.tsx) ─────────────────────────
+   Same header as the site, a huge 404 in the name's type, one sentence and one
+   button. The "0" is the one accent: mint, pulsing slowly like a loading
+   state (off for reduced motion). */
+
+.nf {
+  min-height: 100vh;
+  background: #010101;
+  color: #f2fff6;
+}
+.nf__inner {
+  min-height: 100vh;
+  padding: 20px 50px 48px !important;
+  display: flex;
+  flex-direction: column;
+}
+.nf__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 26px;
+  font-size: 20px;
+  line-height: 1.3;
+}
+.nf .lang-switch {
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+.nf__main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 24px 0 8px;
+}
+.nf__code {
+  display: flex;
+  font-family: var(--font-general-sans);
+  font-weight: 500;
+  font-size: clamp(150px, 30vw, 420px);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  color: #f2fff6;
+}
+.nf__zero {
+  display: inline-block;
+  margin: 0 0.02em;
+  color: #a0f6bb;
+  animation: nf-pulse 2.8s ease-in-out infinite;
+}
+@keyframes nf-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+.nf__text {
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  max-width: 640px;
+}
+.nf__cta {
+  margin-top: 0;
+}
+@media (max-width: 1279px) {
+  .nf__inner {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+}
+@media (max-width: 768px) {
+  .nf__inner {
+    padding: 16px 16px 32px !important;
+  }
+  .nf__top {
+    font-size: 18px;
+  }
+  .nf__code {
+    font-size: 54vw;
+  }
+  .nf__text {
+    font-size: 24px;
+  }
+  .nf__cta {
+    align-self: stretch;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nf__zero {
+    animation: none;
   }
 }

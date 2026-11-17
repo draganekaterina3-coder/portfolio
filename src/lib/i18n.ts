@@ -110,7 +110,7 @@ export const dict: Record<Lang, Dict> = {
       proof: [
         { value: "1M+", label: "скачиваний в Google Play, Barça Mobile" },
         { value: "+35%", label: "DAU после релиза механики, LU Cards" },
-        { value: "4", label: "команды на одной дизайн-системе, суперапп для электромобиля" },
+        { value: "−20%", label: "объём библиотеки после ревизии, суперапп для электромобиля" },
       ],
     },
     works: {
@@ -221,7 +221,7 @@ export const dict: Record<Lang, Dict> = {
       proof: [
         { value: "1M+", label: "downloads on Google Play, Barça Mobile" },
         { value: "+35%", label: "DAU after the mechanic launched, LU Cards" },
-        { value: "4", label: "teams on one design system, EV superapp" },
+        { value: "−20%", label: "component library size after the audit, EV superapp" },
       ],
     },
     works: {
