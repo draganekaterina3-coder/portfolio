@@ -29,7 +29,7 @@ const luCards: ProjectText = {
       "Users came to the app situationally, when a need arose, and had no reason to return every day",
     did: "Together with the art director, designed a daily-card mechanic: collecting a unique deck where a new star opens each day, and two reveal animations, ice and fog",
     result:
-      "DAU grew by 35%, and the app entered the top 100 of the Lifestyle category of the Russian App Store",
+      "Users came back to the app more often, and the app climbed into the top of its category in the Russian App Store",
   },
   blocks: [
     {
@@ -161,7 +161,7 @@ const barcaMobile: ProjectText = {
       "Six weeks before launch, a superapp for football fans had to become a telecom product without losing the work already done",
     did: "Ran JTBD interviews, rebuilt the navigation around eSIM, designed a mandatory onboarding, led the design team and the design system",
     result:
-      "Launched in April 2025 with 1M+ downloads on Google Play. Support complaints dropped noticeably",
+      "Launched in April 2025 on the App Store and Google Play. Support complaints dropped noticeably after the onboarding",
   },
   blocks: [
     { kind: "figure", placeholder: "ILL-1 · Case cover" },
@@ -307,7 +307,7 @@ const evSuperapp: ProjectText = {
       "SUS fell from 84 to 75 while mobile, SWP, web and marketing designed by their own rules",
     did: "Worked with the researchers to break the causes down into three pain zones, reworked the key screens, audited the component library and owned the foundational parts of the new design system",
     result:
-      "The causes of the SUS drop were broken down, the library became about 20% smaller, and one system now serves four teams",
+      "The causes of the SUS drop were broken down into three zones, and the teams started designing scenarios together instead of handing over finished screens",
   },
   blocks: [
     { kind: "figure", placeholder: "ILL-1 · Case cover" },
@@ -474,7 +474,7 @@ const cuverse: ProjectText = {
       "The old app barely worked, and people without a technical background had to understand at any moment what they had earned, what they spent on electricity and what to do next",
     did: "Redesigned the app from scratch in short cycles with the client: the home screen, electricity payment, miner purchase, onboarding and uptime settings. On my own initiative I also made a visual concept",
     result:
-      "The prototypes of the whole app were accepted as final in three months and became the basis for development",
+      "The prototypes of the whole app were accepted as final and became the basis for development",
   },
   blocks: [
     { kind: "figure", placeholder: "ILL-1 · Case cover" },

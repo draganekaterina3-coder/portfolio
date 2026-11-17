@@ -626,10 +626,9 @@ a {
   }
 }
 
-/* ─── Hero: intro (what I do · status · contacts · proof) ──────────── */
+/* ─── Hero: intro (what I do · status · contacts) ───────────────────── */
 
-/* One column on every screen: statement, availability, buttons, then proof.
-   Side by side they competed for attention on desktop. */
+/* One column on every screen: statement, availability, buttons. */
 .hero-intro-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -697,39 +696,6 @@ a {
 .hero-cta__secondary:hover {
   background: rgba(242, 255, 246, 0.08);
 }
-.hero-proof {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: 880px;
-}
-/* Same grid in every row: values share one column and one vertical center,
-   so "1M+", "+35%" and "−20%" sit on a common line and the labels start at
-   the same x. */
-.hero-proof li {
-  display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  column-gap: 24px;
-  align-items: center;
-  min-height: 92px;
-  padding: 14px 0;
-  border-top: 1px solid rgba(242, 255, 246, 0.16);
-}
-.hero-proof b {
-  font-family: var(--font-general-sans);
-  font-weight: 500;
-  font-size: 56px;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-.hero-proof span {
-  font-size: 18px;
-  line-height: 1.35;
-  color: rgba(242, 255, 246, 0.7);
-}
-
 @media (max-width: 1279px) {
   .hero-intro-block {
     padding-top: 40px !important;
@@ -740,13 +706,6 @@ a {
   }
   .hero-lead {
     font-size: 28px;
-  }
-  .hero-proof li {
-    grid-template-columns: 180px minmax(0, 1fr);
-    min-height: 80px;
-  }
-  .hero-proof b {
-    font-size: 44px;
   }
 }
 @media (max-width: 768px) {
@@ -765,18 +724,6 @@ a {
   .hero-cta__secondary {
     justify-content: center;
     font-size: 18px;
-  }
-  .hero-proof li {
-    grid-template-columns: 112px minmax(0, 1fr);
-    column-gap: 16px;
-    min-height: 68px;
-    padding: 12px 0;
-  }
-  .hero-proof b {
-    font-size: 32px;
-  }
-  .hero-proof span {
-    font-size: 16px;
   }
 }
 /* Narrow phones: buttons stack and fill the width. */
@@ -904,69 +851,70 @@ a {
   line-height: 1.4;
 }
 
-/* ─── About ────────────────────────────────────────────────────────── */
+/* ─── About ────────────────────────────────────────────────────────
+   Same grid as .pp-row on the case pages: title column on the left, a 580px
+   text column pinned to the container's right edge (max 62% so it can shrink),
+   20px between. Stacks below 768px exactly like the case pages do. */
 
 .about2 {
-  display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
-  gap: 60px;
-  align-items: start;
-}
-.about2__photos {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
   gap: 20px;
 }
-.about2__photo {
-  border: 2px solid rgba(232, 247, 210, 0.12);
-  border-radius: 8px;
-  overflow: hidden;
-}
-.about2__photo--main {
-  width: 260px;
-  height: 257px;
-}
-.about2__photo--talk {
-  width: 260px;
-  height: 151px;
+.about2__aside {
+  flex: 1 1 0;
+  min-width: 0;
 }
 .about2__main {
+  width: 580px;
+  max-width: 62%;
+  flex: none;
   display: flex;
   flex-direction: column;
   gap: 36px;
-  max-width: 700px;
 }
 .about2__heading {
   font-family: var(--font-general-sans);
   font-weight: 500;
-  font-size: 40px;
+  /* 40px on desktop; steps down with the text column so the name stays on
+     one line and the role goes on the second. */
+  font-size: clamp(30px, 3.6vw, 40px);
   line-height: 1.2;
-  letter-spacing: -2px;
+  letter-spacing: -0.05em;
   color: #f2fff6;
+}
+.about2__name,
+.about2__role {
+  display: block;
+}
+.about2__photo {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 364 / 360;
+  border: 2px solid rgba(232, 247, 210, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
 }
 .about2__facts {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.about2__facts li {
-  border-top: 1px solid rgba(242, 255, 246, 0.16);
-  padding-top: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
 }
 .about2__facts b {
   display: block;
   font-family: var(--font-general-sans);
   font-weight: 500;
-  font-size: 32px;
+  font-size: 40px;
   line-height: 1.1;
   letter-spacing: -0.04em;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .about2__facts span {
-  font-size: 16px;
+  display: block;
+  font-size: 18px;
   line-height: 1.35;
   color: rgba(242, 255, 246, 0.7);
 }
@@ -980,59 +928,34 @@ a {
   gap: 26px;
 }
 
-@media (max-width: 1279px) {
-  .about2 {
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: 40px;
-  }
-  .about2__photo--main {
-    width: 220px;
-    height: 218px;
-  }
-  .about2__photo--talk {
-    width: 220px;
-    height: 128px;
-  }
-}
 @media (max-width: 768px) {
   .about2 {
-    grid-template-columns: 1fr;
-    gap: 28px;
+    flex-direction: column;
+    gap: 24px;
   }
-  .about2__photos {
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 14px;
-  }
-  .about2__photo--main,
-  .about2__photo--talk {
-    width: auto;
-    height: auto;
-    flex: 1 1 0;
-    max-width: 148px;
-  }
-  .about2__photo--main {
-    aspect-ratio: 182 / 180;
-  }
-  .about2__photo--talk {
-    aspect-ratio: 244 / 142;
+  .about2__aside {
+    flex: none;
+    width: 100%;
   }
   .about2__main {
+    width: 100%;
+    max-width: none;
     gap: 28px;
   }
-  .about2__facts {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  .about2__heading {
+    font-size: 32px;
   }
-  .about2__facts li {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
+  .about2__photo {
+    width: 200px;
+  }
+  .about2__facts {
+    gap: 20px;
   }
   .about2__facts b {
-    margin: 0;
-    font-size: 24px;
-    flex: none;
+    font-size: 32px;
+  }
+  .about2__facts span {
+    font-size: 16px;
   }
   .about2__copy {
     font-size: 18px;
@@ -1253,6 +1176,7 @@ a {
 /* Desktop side padding (50px); .responsive-px takes over below 1280. */
 .pp-intro,
 .pp-metrics-wrap,
+.pp-summary-wrap,
 .pp-body,
 .pp-next {
   padding-left: 50px;

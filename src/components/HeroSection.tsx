@@ -19,7 +19,7 @@ const ArrowIcon = ({ color }: { color: string }) => (
   recruiter needs in the first ten seconds:
     1. what I do (one sentence)
     2. am I available (status) and how to reach me (two buttons)
-    3. proof — three numbers from the strongest cases
+  The numbers live on the project cards, not here, so nothing is said twice.
 */
 export default function HeroSection({ lang }: { lang: Lang }) {
   const t = dict[lang];
@@ -115,15 +115,6 @@ export default function HeroSection({ lang }: { lang: Lang }) {
               </a>
             </div>
           </div>
-
-          <ul className="hero-proof">
-            {hero.proof.map((p) => (
-              <li key={p.value}>
-                <b>{p.value}</b>
-                <span>{nb(p.label)}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>

@@ -6,9 +6,13 @@ import { dict, type Lang, type Seg } from "@/lib/i18n";
 /*
   About: after all the work and the client logos, just before the footer.
 
-  Left column: portrait (and the conference photo under it).
-  Right column: heading with name + role, three facts as numbers, then the
-  longer text. Copy for both languages lives in lib/i18n.ts.
+  Built on the same two-column grid as the case pages (.pp-row): a title
+  column on the left and a 580px text column pinned to the right edge of the
+  container, so the block lines up with every other section.
+
+  Left:  the portrait. (On small screens it comes first, above all the text.)
+  Right: name and role on two lines, two facts as numbers, then the longer text.
+  Copy for both languages lives in lib/i18n.ts.
 */
 
 const ArrowIcon = ({ size = 16 }: { size?: number }) => (
@@ -67,31 +71,24 @@ export default function AboutSection({ lang }: { lang: Lang }) {
     <section id="about" className="about-section-pad" style={{ backgroundColor: "#010101", paddingTop: "100px" }}>
       <ScrollReveal>
         <div className="container-1280 responsive-px about2" style={{ padding: "0 50px" }}>
-          <div className="about2__photos">
-            <div className="about2__photo about2__photo--main">
+          <div className="about2__aside">
+            <div className="about2__photo">
               <Image
                 src="/about/photo-1.png"
                 alt={t.photoAlt}
                 width={364}
                 height={360}
-                sizes="260px"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            </div>
-            <div className="about2__photo about2__photo--talk">
-              <Image
-                src="/about/photo-2.png"
-                alt={t.talkAlt}
-                width={488}
-                height={284}
-                sizes="260px"
+                sizes="300px"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
           </div>
 
           <div className="about2__main">
-            <h2 className="about-heading about2__heading">{nb(t.heading)}</h2>
+            <h2 className="about-heading about2__heading">
+              <span className="about2__name">{nb(t.name)}</span>
+              <span className="about2__role">{nb(t.role)}</span>
+            </h2>
 
             <ul className="about2__facts">
               {t.facts.map((f) => (

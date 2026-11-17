@@ -51,7 +51,6 @@ export type Dict = {
     status: string;
     primary: string;
     secondary: { label: string; href: string };
-    proof: { value: string; label: string }[];
   };
   works: {
     featured: string;
@@ -69,9 +68,9 @@ export type Dict = {
     flawery: Card;
   };
   about: {
-    heading: string;
+    name: string;
+    role: string;
     photoAlt: string;
-    talkAlt: string;
     facts: { value: string; label: string }[];
     paragraphs: Seg[][];
   };
@@ -107,11 +106,6 @@ export const dict: Record<Lang, Dict> = {
       status: "Открыта к предложениям",
       primary: "Написать в Telegram",
       secondary: { label: "Резюме на hh.ru", href: links.hh },
-      proof: [
-        { value: "1M+", label: "скачиваний в Google Play, Barça Mobile" },
-        { value: "+35%", label: "DAU после релиза механики, LU Cards" },
-        { value: "−20%", label: "объём библиотеки после ревизии, суперапп для электромобиля" },
-      ],
     },
     works: {
       featured: "Избранные проекты",
@@ -163,18 +157,17 @@ export const dict: Record<Lang, Dict> = {
       },
     },
     about: {
-      heading: "Екатерина Драган, продуктовый дизайнер",
+      name: "Екатерина Драган",
+      role: "продуктовый дизайнер",
       photoAlt: "Екатерина Драган, продуктовый дизайнер",
-      talkAlt: "Екатерина Драган выступает с докладом на конференции",
       facts: [
         { value: "5 лет", label: "в продуктовом дизайне" },
         { value: "2 года", label: "менторства младших дизайнеров" },
-        { value: "Доклад и статья", label: "Dprofile, Т‑Бизнес секреты" },
       ],
       paragraphs: [
         [{ b: "Работаю в полном цикле разработки: " }, "от ux‑исследований и гипотез до запуска и дальнейшего развития продукта"],
         ["Специализируюсь на мобильных приложениях, но имею опыт работы и с веб‑сервисами и сложными экосистемами"],
-        ["Создаю продукты в различных сферах: ", { b: "e‑commerce, финтехе, крипто, телеком и даже суперап" }, " для электромобиля"],
+        ["Создаю продукты в различных сферах: ", { b: "e‑commerce, финтехе, крипто, телеком и даже суперапп" }, " для электромобиля"],
         [
           "Строю ",
           { b: "дизайн‑системы с нуля и с легаси" },
@@ -218,11 +211,6 @@ export const dict: Record<Lang, Dict> = {
       status: "Open to new roles",
       primary: "Message me on Telegram",
       secondary: { label: "LinkedIn", href: links.linkedin },
-      proof: [
-        { value: "1M+", label: "downloads on Google Play, Barça Mobile" },
-        { value: "+35%", label: "DAU after the mechanic launched, LU Cards" },
-        { value: "−20%", label: "component library size after the audit, EV superapp" },
-      ],
     },
     works: {
       featured: "Selected projects",
@@ -274,13 +262,12 @@ export const dict: Record<Lang, Dict> = {
       },
     },
     about: {
-      heading: "Ekaterina Dragan, product designer",
+      name: "Ekaterina Dragan",
+      role: "product designer",
       photoAlt: "Ekaterina Dragan, product designer",
-      talkAlt: "Ekaterina Dragan giving a talk at a conference",
       facts: [
         { value: "5 years", label: "in product design" },
         { value: "2 years", label: "mentoring junior designers" },
-        { value: "Talk and article", label: "Dprofile, T-Bank Secrets" },
       ],
       paragraphs: [
         [{ b: "I work across the full product cycle: " }, "from UX research and hypotheses to launch and the product's further growth"],
