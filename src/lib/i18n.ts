@@ -86,7 +86,6 @@ export type Dict = {
     problem: string;
     did: string;
     result: string;
-    readFull: string;
     illustration: string;
   };
 };
@@ -133,11 +132,11 @@ export const dict: Record<Lang, Dict> = {
         title: "Cuverse",
         description:
           "UX-редизайн приложения для инвестиций в майнинг биткоина: пять ключевых сценариев за три месяца, прототипы приняты как финальные",
-        tags: ["iOS"],
+        tags: ["iOS", "Android"],
         metric: "5 сценариев · 3 месяца",
       },
       ev: {
-        title: "Суперапп для электромобиля (NDA)",
+        title: "Суперапп электромобиля",
         description:
           "Диагностировали падение SUS с 84% до 75% и построили омниканальную дизайн-систему для экосистемы электромобиля — мобайл и SWP",
         tags: ["Кроссплатформа", "SWP"],
@@ -162,7 +161,7 @@ export const dict: Record<Lang, Dict> = {
       photoAlt: "Екатерина Драган, продуктовый дизайнер",
       facts: [
         { value: "5 лет", label: "в продуктовом дизайне" },
-        { value: "2 года", label: "менторства младших дизайнеров" },
+        { value: "2 года", label: "менторства" },
       ],
       paragraphs: [
         [{ b: "Работаю в полном цикле разработки: " }, "от ux‑исследований и гипотез до запуска и дальнейшего развития продукта"],
@@ -192,7 +191,6 @@ export const dict: Record<Lang, Dict> = {
       problem: "Проблема",
       did: "Что сделала",
       result: "Результат",
-      readFull: "Читать полностью",
       illustration: "ИЛЛ",
     },
   },
@@ -238,11 +236,11 @@ export const dict: Record<Lang, Dict> = {
         title: "Cuverse",
         description:
           "UX redesign of an app for investing in bitcoin mining: five core flows in three months, prototypes accepted as final",
-        tags: ["iOS"],
+        tags: ["iOS", "Android"],
         metric: "5 flows · 3 months",
       },
       ev: {
-        title: "EV superapp (NDA)",
+        title: "EV superapp",
         description:
           "Diagnosed a SUS drop from 84 to 75 and built an omnichannel design system for an electric-car ecosystem: mobile and the in-car dashboard (SWP)",
         tags: ["Cross-platform", "SWP"],
@@ -267,7 +265,7 @@ export const dict: Record<Lang, Dict> = {
       photoAlt: "Ekaterina Dragan, product designer",
       facts: [
         { value: "5 years", label: "in product design" },
-        { value: "2 years", label: "mentoring junior designers" },
+        { value: "2 years", label: "mentoring" },
       ],
       paragraphs: [
         [{ b: "I work across the full product cycle: " }, "from UX research and hypotheses to launch and the product's further growth"],
@@ -297,7 +295,6 @@ export const dict: Record<Lang, Dict> = {
       problem: "Problem",
       did: "What I did",
       result: "Result",
-      readFull: "Read the full case",
       illustration: "ILL",
     },
   },

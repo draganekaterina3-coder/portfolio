@@ -66,7 +66,7 @@ const nextConfig: NextConfig = {
         // (unlike _next/static), so this stays well short of immutable —
         // a day-long cache still cuts repeat-visit requests without
         // risking a stale asset if a file ever gets swapped in place.
-        source: "/:path*(svg|png|jpg|jpeg|gif|webp|ico)",
+        source: "/:path*(svg|png|jpg|jpeg|gif|webp|ico|mp4)",
         headers: [
           { key: "Cache-Control", value: "public, max-age=86400, must-revalidate" },
         ],

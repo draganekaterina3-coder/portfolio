@@ -298,9 +298,9 @@ const evSuperapp: ProjectText = {
     { label: "NDA", value: "The layouts are anonymized and show intermediate iterations" },
   ],
   metrics: [
-    { value: "84 → 75", label: "SUS drop, whose causes\nwe broke down\nby scenario" },
-    { value: "−20%", label: "library size after\nthe audit, even though\nthe system became fuller" },
-    { value: "4 teams", label: "mobile, SWP, web and\nmarketing work with\none library" },
+    { value: "84 → 75", label: "SUS drop detected,\ncauses identified" },
+    { value: "−20%", label: "library size\nafter the audit" },
+    { value: "4 teams", label: "united by one\ndesign system" },
   ],
   summary: {
     problem:
@@ -461,11 +461,11 @@ const cuverse: ProjectText = {
       label: "Team",
       value: "Art director, analyst and project manager. On the client side, the business owner",
     },
-    { label: "Platform", value: "iOS" },
+    { label: "Platforms", value: "iOS, Android" },
     { label: "Status", value: "Prototypes accepted and used as the basis for development" },
   ],
   metrics: [
-    { value: "3 months", label: "from kickoff to accepted\nprototypes of the whole app" },
+    { value: "3 months", label: "from kickoff to\naccepted prototypes" },
     { value: "5 flows", label: "designed\nfrom scratch" },
     { value: "2 audiences", label: "newcomer\nand experienced investor" },
   ],

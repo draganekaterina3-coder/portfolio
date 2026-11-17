@@ -4,6 +4,7 @@ import type { FigureImage, Project, ProjectBlock } from "@/lib/projects";
 import SiteNav from "./SiteNav";
 import ContactSection from "./ContactSection";
 import ScrollReveal from "./ScrollReveal";
+import AutoVideo from "./AutoVideo";
 import { nb } from "@/lib/typography";
 import { dict, otherLang, projectHref, type Lang } from "@/lib/i18n";
 
@@ -47,9 +48,7 @@ function FigureFrame({ image, sizes }: { image: FigureImage; sizes: string }) {
       />
       {screen && (
         <div className="pp-phone">
-          {/* Animated GIF — next/image would flatten it to a still. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={screen.src} alt={screen.alt} loading="lazy" decoding="async" />
+          <AutoVideo src={screen.src} poster={screen.poster} label={screen.alt} />
         </div>
       )}
     </div>
@@ -183,6 +182,21 @@ const isMedia = (b?: ProjectBlock) => b?.kind === "figure" || b?.kind === "figur
 export default function ProjectPage({ project, lang }: { project: Project; lang: Lang }) {
   const t = dict[lang].project;
   const nextHref = lang === "en" ? `/en${project.nextHref}` : project.nextHref;
+  // "The case in 30 seconds" is an ordinary text row (title column + 580px
+  // body, bold lead-ins like the lists elsewhere), so it needs no styles of
+  // its own and sits on the same grid as every other section.
+  const summaryBlock: ProjectBlock | null = project.summary
+    ? {
+        kind: "text",
+        title: t.summary,
+        paragraphs: [
+          { text: `**${t.problem}.** ${project.summary.problem}` },
+          { text: `**${t.did}.** ${project.summary.did}` },
+          { text: `**${t.result}.** ${project.summary.result}` },
+        ],
+      }
+    : null;
+  const blocks: ProjectBlock[] = summaryBlock ? [summaryBlock, ...project.blocks] : project.blocks;
   return (
     <>
       <header>
@@ -233,38 +247,13 @@ export default function ProjectPage({ project, lang }: { project: Project; lang:
           </ul>
         </div>
 
-        {project.summary && (
-          <div className="container-1280 responsive-px pp-summary-wrap">
-            <section className="pp-summary" aria-labelledby="pp-summary-title">
-              <div className="pp-summary__head">
-                <h2 id="pp-summary-title">{nb(t.summary)}</h2>
-                <a href="#case">{t.readFull} ↓</a>
-              </div>
-              <div className="pp-summary__cols">
-                <div>
-                  <h3>{t.problem}</h3>
-                  <p>{nb(project.summary.problem)}</p>
-                </div>
-                <div>
-                  <h3>{t.did}</h3>
-                  <p>{nb(project.summary.did)}</p>
-                </div>
-                <div>
-                  <h3>{t.result}</h3>
-                  <p>{nb(project.summary.result)}</p>
-                </div>
-              </div>
-            </section>
-          </div>
-        )}
-
-        <div id="case" className="container-1280 responsive-px pp-body">
-          {project.blocks.map((block, i) => (
+        <div className="container-1280 responsive-px pp-body">
+          {blocks.map((block, i) => (
             <ScrollReveal key={i}>
               <Block
                 block={block}
-                padTop={isMedia(project.blocks[i - 1])}
-                padBottom={isMedia(project.blocks[i + 1])}
+                padTop={isMedia(blocks[i - 1])}
+                padBottom={isMedia(blocks[i + 1])}
               />
             </ScrollReveal>
           ))}

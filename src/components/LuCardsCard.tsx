@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import AutoVideo from "./AutoVideo";
 import { nb } from "@/lib/typography";
 
 /*
@@ -130,10 +131,9 @@ export default function LuCardsCard({
             zIndex: 2,
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/projects/LU Cards_animation.gif"
-            alt=""
+          <AutoVideo
+            src="/projects/lu-cards/daily-card.mp4"
+            poster="/projects/lu-cards/daily-card.jpg"
             style={{
               width: "100%",
               height: "100%",

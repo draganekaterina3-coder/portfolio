@@ -2,6 +2,28 @@
 
 :root {
   --font-general-sans: "General Sans", var(--font-inter), sans-serif;
+
+  /* Spacing and reading rhythm, one scale for every page.
+     --section-gap  between the big parts of a page (hero, works, about, footer)
+     --block-gap    between blocks of a case study (text rows, figures, plate)
+     --para-gap     between paragraphs of one text
+     --lh-body      line height of running text (a heading-like 1.1-1.3 is used
+                    for titles; long text needs air, 1.45 reads best at 18-20px) */
+  --section-gap: 96px;
+  --block-gap: 64px;
+  --para-gap: 24px;
+  --lh-body: 1.45;
+}
+@media (max-width: 1279px) {
+  :root {
+    --section-gap: 64px;
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --section-gap: 48px;
+    --para-gap: 20px;
+  }
 }
 
 *, *::before, *::after {
@@ -353,44 +375,24 @@ a {
   }
 }
 
-/* Section vertical rhythm — the 70–100px desktop gaps read as dead space
-   once type/cards shrink on smaller canvases. Tighten proportionally. */
-@media (max-width: 1279px) {
-  .works-top-pad {
-    padding-top: 64px !important;
-  }
-  .works-other-heading {
-    padding-top: 56px !important;
-  }
-  .about-section-pad {
-    padding-top: 48px !important;
-  }
-  .contact-section-pad {
-    padding-top: 64px !important;
-  }
-  .logo-strip-viewport {
-    padding-top: 56px !important;
-    padding-bottom: 56px !important;
-  }
+/* Section vertical rhythm: every major part of the page is separated by the
+   same --section-gap (96 / 64 / 48), whatever the Figma padding said. */
+.works-top-pad,
+.works-other-heading,
+.about-section-pad,
+.contact-section-pad {
+  padding-top: var(--section-gap) !important;
 }
-
-@media (max-width: 768px) {
-  .works-top-pad {
-    padding-top: 48px !important;
-  }
-  .works-other-heading {
-    padding-top: 44px !important;
-  }
-  .about-section-pad {
-    padding-top: 40px !important;
-  }
-  .contact-section-pad {
-    padding-top: 48px !important;
-  }
-  .logo-strip-viewport {
-    padding-top: 44px !important;
-    padding-bottom: 44px !important;
-  }
+/* The hero hands over to the works section's own gap. */
+.hero-intro-block {
+  padding-bottom: 0 !important;
+}
+/* The logo row sits one section gap below the cards and hands over to the
+   next section's own gap, so no extra padding underneath. */
+.logo-strip-viewport {
+  height: auto !important;
+  padding-top: var(--section-gap) !important;
+  padding-bottom: 0 !important;
 }
 
 /* Below 768: the hover-based desktop cards are replaced by always-visible
@@ -464,10 +466,10 @@ a {
   /* More air right after the image, and the button gets its own
      margin-top below (on top of this gap) so it doesn't sit stuck to
      the tags/chips. */
-  padding: 28px 20px 24px;
+  padding: 24px 20px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .mobile-project-card__title {
@@ -480,7 +482,7 @@ a {
 }
 
 .mobile-project-card__desc {
-  font-size: clamp(15px, 3.9vw, 17px);
+  font-size: 16px;
   line-height: 1.5;
   color: rgba(242, 255, 246, 0.7);
 }
@@ -495,15 +497,14 @@ a {
   padding: 6px 12px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 100px;
-  font-size: 13px;
+  font-size: 14px;
   color: #f2fff6;
   white-space: nowrap;
 }
 
 .mobile-project-card__button {
-  /* On top of the body's 14px gap — clears ~24px from the chips instead
-     of visually touching them. */
-  margin-top: 10px;
+  /* On top of the body's 16px gap: 24px clear of the chips. */
+  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -541,8 +542,6 @@ a {
   }
   .about-copy {
     font-size: 18px !important;
-    line-height: 1.45 !important;
-    gap: 16px !important;
   }
 }
 
@@ -646,7 +645,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 24px;
   padding: 8px 18px;
   border: 1.5px solid rgba(160, 246, 187, 0.4);
   border-radius: 100px;
@@ -699,7 +698,7 @@ a {
 @media (max-width: 1279px) {
   .hero-intro-block {
     padding-top: 40px !important;
-    padding-bottom: 32px !important;
+    padding-bottom: 0 !important;
   }
   .hero-intro-grid {
     gap: 36px;
@@ -711,13 +710,12 @@ a {
 @media (max-width: 768px) {
   .hero-intro-block {
     padding-top: 32px !important;
-    padding-bottom: 28px !important;
+    padding-bottom: 0 !important;
   }
   .hero-lead {
     font-size: 24px;
   }
   .hero-status {
-    margin-top: 20px;
     font-size: 16px;
   }
   .hero-cta__primary,
@@ -871,7 +869,7 @@ a {
   flex: none;
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 32px;
 }
 .about2__heading {
   font-family: var(--font-general-sans);
@@ -921,11 +919,11 @@ a {
 .about2__copy {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.3;
+  line-height: var(--lh-body);
   color: #f2fff6;
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: var(--para-gap);
 }
 
 @media (max-width: 768px) {
@@ -940,7 +938,7 @@ a {
   .about2__main {
     width: 100%;
     max-width: none;
-    gap: 28px;
+    gap: 24px;
   }
   .about2__heading {
     font-size: 32px;
@@ -958,82 +956,6 @@ a {
     font-size: 16px;
   }
   .about2__copy {
-    font-size: 18px;
-    line-height: 1.45;
-    gap: 16px;
-  }
-}
-
-/* ─── Case page: "the case in 30 seconds" ──────────────────────────── */
-
-.pp-summary-wrap {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-.pp-summary {
-  border-top: 1px solid rgba(242, 255, 246, 0.16);
-  padding-top: 28px;
-  padding-bottom: 12px;
-}
-.pp-summary__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.pp-summary__head h2 {
-  font-family: var(--font-general-sans);
-  font-weight: 500;
-  font-size: 32px;
-  line-height: 1.2;
-  letter-spacing: -0.04em;
-  color: #f2fff6;
-}
-.pp-summary__head a {
-  color: #a0f6bb;
-  font-size: 18px;
-}
-.pp-summary__cols {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 36px;
-  margin-top: 24px;
-}
-.pp-summary__cols > div {
-  border-top: 1px solid rgba(242, 255, 246, 0.2);
-  padding-top: 16px;
-}
-.pp-summary__cols h3 {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(242, 255, 246, 0.6);
-  margin-bottom: 10px;
-}
-.pp-summary__cols p {
-  font-size: 18px;
-  line-height: 1.4;
-  color: #f2fff6;
-}
-@media (max-width: 1023px) {
-  .pp-summary__cols {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-@media (max-width: 768px) {
-  .pp-summary__head h2 {
-    font-size: 24px;
-  }
-  .pp-summary__head a {
-    font-size: 16px;
-  }
-  .pp-summary__cols h3 {
-    font-size: 14px;
-  }
-  .pp-summary__cols p {
     font-size: 18px;
   }
 }
@@ -1102,7 +1024,7 @@ a {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 80px;
+  margin-top: 64px;
   padding-top: 20px;
   border-top: 1px solid rgba(242, 255, 246, 0.18);
   font-size: 16px;
@@ -1128,7 +1050,7 @@ a {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-    margin-top: 28px;
+    margin-top: 32px;
   }
   .contact-button {
     width: 100%;
@@ -1176,7 +1098,6 @@ a {
 /* Desktop side padding (50px); .responsive-px takes over below 1280. */
 .pp-intro,
 .pp-metrics-wrap,
-.pp-summary-wrap,
 .pp-body,
 .pp-next {
   padding-left: 50px;
@@ -1184,7 +1105,7 @@ a {
 }
 .pp-intro {
   padding-top: 70px;
-  padding-bottom: 40px;
+  padding-bottom: 0;
 }
 .pp-intro__row {
   display: flex;
@@ -1203,7 +1124,7 @@ a {
   margin-top: 32px;
 }
 .pp-intro-text :is(p, ul) + :is(p, ul) {
-  margin-top: 26px;
+  margin-top: var(--para-gap);
 }
 .pp-title {
   font-family: var(--font-general-sans);
@@ -1246,8 +1167,8 @@ a {
 }
 
 .pp-metrics-wrap {
-  padding-top: 70px;
-  padding-bottom: 40px;
+  padding-top: var(--block-gap);
+  padding-bottom: 0;
 }
 .pp-metrics {
   list-style: none;
@@ -1281,6 +1202,21 @@ a {
 .pp-metric__label {
   white-space: pre-line;
 }
+/* Tablet: three columns get narrow, so the stats use the same two steps as
+   on phones (value 32, caption 16) and every caption stays within two lines. */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .pp-metrics-wrap .pp-metrics {
+    gap: 16px;
+    padding: 40px 16px;
+  }
+  .pp-metric__value {
+    font-size: 32px;
+    letter-spacing: -0.04em;
+  }
+  .pp-metric__label {
+    font-size: 16px;
+  }
+}
 @media (min-width: 1280px) {
   /* Cases whose stat captions are written with their own line breaks use three
      equal columns instead of the LU Cards Figma widths. */
@@ -1303,10 +1239,10 @@ a {
 }
 
 .pp-body {
-  padding-top: 70px;
+  padding-top: var(--block-gap);
   display: flex;
   flex-direction: column;
-  gap: 70px;
+  gap: var(--block-gap);
 }
 .pp-row {
   display: flex;
@@ -1328,15 +1264,18 @@ a {
   max-width: 62%;
   flex: none;
 }
+.pp-row__body {
+  line-height: var(--lh-body);
+}
 .pp-row__body :is(p, ul) + :is(p, ul) {
-  margin-top: 26px;
+  margin-top: var(--para-gap);
 }
 .pp-list {
   list-style: disc;
   padding-left: 22px;
 }
 .pp-list li + li {
-  margin-top: 8px;
+  margin-top: 12px;
 }
 .pp-list li {
   white-space: pre-line;
@@ -1365,6 +1304,9 @@ a {
 .pp-meta dd {
   white-space: pre-line;
 }
+.pp-meta dd {
+  line-height: 1.4;
+}
 .pp-steps {
   list-style: none;
   display: flex;
@@ -1380,6 +1322,9 @@ a {
   font-size: 20px;
   font-weight: 600;
   line-height: 1.3;
+}
+.pp-steps p {
+  line-height: var(--lh-body);
 }
 
 .pp-figure {
@@ -1397,6 +1342,7 @@ a {
 }
 .pp-caption {
   color: rgba(242, 255, 246, 0.7);
+  line-height: 1.4;
 }
 .pp-figure-pair {
   display: flex;
@@ -1424,7 +1370,8 @@ a {
   border-radius: 29px;
   overflow: hidden;
 }
-.pp-phone img {
+.pp-phone img,
+.pp-phone video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1435,7 +1382,7 @@ a {
 .pp-next {
   display: flex;
   justify-content: flex-end;
-  padding-top: 110px;
+  padding-top: var(--section-gap);
 }
 .pp-next a {
   display: flex;
@@ -1459,19 +1406,11 @@ a {
   }
   .pp-intro {
     padding-top: 48px;
-    padding-bottom: 32px;
-  }
-  .pp-metrics-wrap {
-    padding-top: 48px;
-    padding-bottom: 32px;
+    padding-bottom: 0;
   }
   .pp-metrics {
     gap: clamp(24px, 4vw, 100px);
     padding: 40px 32px;
-  }
-  .pp-body {
-    padding-top: 48px;
-    gap: 56px;
   }
   .pp-row--pt {
     padding-top: 24px;
@@ -1479,15 +1418,12 @@ a {
   .pp-row--pb {
     padding-bottom: 24px;
   }
-  .pp-next {
-    padding-top: 64px;
-  }
 }
 
 @media (max-width: 768px) {
   .pp-intro {
     padding-top: 40px;
-    padding-bottom: 28px;
+    padding-bottom: 0;
   }
   .pp-intro__row {
     flex-direction: column;
@@ -1503,13 +1439,9 @@ a {
     width: 100%;
     max-width: none;
   }
-  .pp-metrics-wrap {
-    padding-top: 40px;
-    padding-bottom: 28px;
-  }
   .pp-metrics {
     flex-direction: column;
-    gap: 28px;
+    gap: 24px;
     padding: 32px 24px;
     border-radius: 16px;
   }
@@ -1534,10 +1466,6 @@ a {
     font-size: 18px;
     line-height: 1.4;
   }
-  .pp-body {
-    padding-top: 40px;
-    gap: 64px;
-  }
   .pp-row--pt,
   .pp-row--pb {
     padding-top: 0;
@@ -1556,11 +1484,6 @@ a {
   .pp-steps li p,
   .pp-list {
     font-size: 18px;
-    line-height: 1.45;
-  }
-  .pp-row__body :is(p, ul) + :is(p, ul),
-  .pp-intro-text :is(p, ul) + :is(p, ul) {
-    margin-top: 20px;
   }
   /* Continuation blocks have no title: drop the empty column. */
   .pp-row__title:empty {
@@ -1580,7 +1503,6 @@ a {
   }
   .pp-caption {
     font-size: 16px;
-    line-height: 1.4;
   }
   .pp-row__body {
     width: 100%;
@@ -1597,9 +1519,6 @@ a {
   .pp-phone {
     border-width: 6px;
     border-radius: 22px;
-  }
-  .pp-next {
-    padding-top: 48px;
   }
   .pp-next a {
     font-size: 20px;
@@ -1799,4 +1718,27 @@ a {
   .nf__zero {
     animation: none;
   }
+}
+
+/* ─── Touch targets ──────────────────────────────────────────────────
+   Several text links are 25-34px tall, under the 44px comfortable minimum for
+   a finger. An invisible pseudo-element enlarges only the hit area, the look
+   stays as designed. The 28px gap between nav items leaves room for it. */
+.hero-nav-group a,
+.hero-nav-contact a,
+.lang-switch,
+.pp-next a,
+.pp-meta__links a,
+.footer-links a {
+  position: relative;
+}
+.hero-nav-group a::after,
+.hero-nav-contact a::after,
+.lang-switch::after,
+.pp-next a::after,
+.pp-meta__links a::after,
+.footer-links a::after {
+  content: "";
+  position: absolute;
+  inset: -9px -8px;
 }

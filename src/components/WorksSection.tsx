@@ -4,6 +4,7 @@ import LuCardsCard from "./LuCardsCard";
 import LogoStrip from "./LogoStrip";
 import MobileProjectCard from "./MobileProjectCard";
 import ScrollReveal from "./ScrollReveal";
+import AutoVideo from "./AutoVideo";
 import { nb } from "@/lib/typography";
 import { dict, links, projectHref, type Lang } from "@/lib/i18n";
 
@@ -74,10 +75,9 @@ const LuCardsMobileImage = () => (
         zIndex: 2,
       }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/projects/LU Cards_animation.gif"
-        alt=""
+      <AutoVideo
+        src="/projects/lu-cards/daily-card.mp4"
+        poster="/projects/lu-cards/daily-card.jpg"
         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
       />
     </div>

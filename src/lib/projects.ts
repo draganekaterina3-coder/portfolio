@@ -17,8 +17,9 @@ export type FigureImage = {
   width: number;
   height: number;
   crop?: ImageCrop;
-  // Animated screen recording shown inside a phone frame on top of the image.
-  screen?: { src: string; alt: string };
+  // Screen recording (muted looping MP4 + a still poster) shown inside a phone
+  // frame on top of the image.
+  screen?: { src: string; poster: string; alt: string };
 };
 
 export type ProjectBlock =
@@ -178,7 +179,8 @@ const luCards: Project = {
             height: 2048,
             crop: { left: "-1.85%", top: "-0.03%", width: "205.92%", height: "244.27%" },
             screen: {
-              src: "/projects/lu-cards/ice-screen.gif",
+              src: "/projects/lu-cards/ice-screen.mp4",
+              poster: "/projects/lu-cards/ice-screen.jpg",
               alt: "Запись экрана: механика «Лед» — карту нужно освободить ото льда",
             },
           },
@@ -192,7 +194,8 @@ const luCards: Project = {
             height: 2048,
             crop: { left: "-102.78%", top: "-0.3%", width: "202.93%", height: "240.73%" },
             screen: {
-              src: "/projects/lu-cards/fog-screen.gif",
+              src: "/projects/lu-cards/fog-screen.mp4",
+              poster: "/projects/lu-cards/fog-screen.jpg",
               alt: "Запись экрана: механика «Туман» — нужно протереть запотевшую карту",
             },
           },
@@ -414,7 +417,7 @@ const barcaMobile: Project = {
 
 const evSuperapp: Project = {
   slug: "ev-superapp",
-  title: "Суперапп для электромобиля",
+  title: "Суперапп электромобиля",
   description:
     "Кейс под NDA: нашли причины падения SUS и заложили общую дизайн-систему для мобильного приложения и приборной панели электромобиля.",
   meta: [
@@ -434,9 +437,9 @@ const evSuperapp: Project = {
     { label: "NDA", value: "Макеты обезличены и показывают промежуточные итерации" },
   ],
   metrics: [
-    { value: "84 → 75", label: "падение SUS, причины\nкоторого мы разложили\nпо сценариям" },
-    { value: "−20%", label: "объём библиотеки после\nревизии, при том что\nсистема стала полнее" },
-    { value: "4 команды", label: "мобайл, SWP, веб и\nмаркетинг работают\nс одной библиотекой" },
+    { value: "84 → 75", label: "падение SUS обнаружили\nи выявили причины" },
+    { value: "−20%", label: "объём библиотеки\nпосле ревизии" },
+    { value: "4 команды", label: "объединила одна\nдизайн-система" },
   ],
   fluidMetrics: true,
   summary: {
@@ -624,11 +627,11 @@ const cuverse: Project = {
       label: "Команда",
       value: "Арт-директор, аналитик и проджект-менеджер. Со стороны заказчика — владелец бизнеса",
     },
-    { label: "Платформа", value: "iOS" },
+    { label: "Платформы", value: "iOS, Android" },
     { label: "Статус", value: "Прототипы приняты и легли в основу разработки" },
   ],
   metrics: [
-    { value: "3 месяца", label: "от старта до принятых\nпрототипов всего приложения" },
+    { value: "3 месяца", label: "от старта до\nпринятых прототипов" },
     { value: "5 сценариев", label: "спроектированы\nс нуля" },
     { value: "2 аудитории", label: "новичок\nи опытный инвестор" },
   ],
